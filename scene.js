@@ -1,14 +1,16 @@
 /* deer + almond — scroll-driven watercolour wilderness
  *
  * A slightly-off bird's-eye camera tracks a deer walking north through a
- * Manitoba boreal/prairie landscape. Scroll drives the deer forward; the deer
- * snakes left-right across the centre corridor of the screen, which the page
- * layout keeps free of text.
+ * Manitoba boreal/prairie landscape. Scroll says where the deer *should* be;
+ * the deer then walks there at an animal's pace, so a flick of the wheel reads
+ * as the animal picking up into a trot rather than as a smear.
  *
- * Look: everything is rendered flat-lit and posterised, then run through a
- * paper pass — pigment granulation, halftone in the shadows, chromatic
- * offset and a paper-white wash on the left/right thirds so the ink-dark
- * type in the gutters always keeps its contrast.
+ * Look: the landscape is a loose posterised wash. The deer is the only drawn
+ * *character* on screen and is treated the way the foreground of a painted
+ * animation is — hard-stepped cel shading and an ink contour the backgrounds
+ * never get. Everything then goes through a paper pass: pigment granulation,
+ * halftone in the shadows, chromatic offset and a paper-white wash on the
+ * left/right thirds so the ink-dark type in the gutters keeps its contrast.
  */
 
 import * as THREE from 'three';
@@ -29,6 +31,11 @@ renderer.setSize(innerWidth, innerHeight, false);
 renderer.setClearColor(0xe9e3d4, 1);
 
 const PAPER = new THREE.Color('#efe8d8');
+const TAU = Math.PI * 2;
+
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const hash1 = (n) => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); };
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(PAPER.getHex(), 0.0044);
@@ -67,10 +74,22 @@ const NOISE_GLSL = /* glsl */`
   }
 `;
 
-/* Lambert + injected pigment. `bleed` controls how far colour wanders from
-   the base tone; `bands` sets the posterisation step count. */
-function watercolour(color, { bleed = 0.16, bands = 4.0, scale = 0.35, poster = 0.55 } = {}) {
-  const mat = new THREE.MeshLambertMaterial({ color, flatShading: true });
+/* Cel ramp for the deer: three hard steps, so light on the animal breaks into
+   flat shapes with a crisp terminator instead of a smooth 3D gradient. */
+const CEL_RAMP = (() => {
+  const steps = new Uint8Array([96, 96, 96, 178, 178, 236, 255, 255]);
+  const t = new THREE.DataTexture(steps, steps.length, 1, THREE.RedFormat);
+  t.minFilter = t.magFilter = THREE.NearestFilter;
+  t.needsUpdate = true;
+  return t;
+})();
+
+/* Lambert (or, for the deer, toon) + injected pigment. `bleed` controls how
+   far colour wanders from the base tone; `bands` sets the posterise steps. */
+function watercolour(color, { bleed = 0.16, bands = 4.0, scale = 0.35, poster = 0.55, cel = false } = {}) {
+  const mat = cel
+    ? new THREE.MeshToonMaterial({ color, gradientMap: CEL_RAMP })
+    : new THREE.MeshLambertMaterial({ color, flatShading: true });
   mat.onBeforeCompile = (shader) => {
     shader.uniforms.uBleed = { value: bleed };
     shader.uniforms.uBands = { value: bands };
@@ -111,9 +130,9 @@ function watercolour(color, { bleed = 0.16, bands = 4.0, scale = 0.35, poster = 
 
 /* ------------------------------------------------------------- the ground */
 
-const TRACK = 900;     // world units the deer covers over a full scroll
-const AMP   = 8;       // how far left/right the deer wanders
-const WAVES = 5.5;     // full snake cycles across the whole page
+const TRACK = 430;     // world units the deer covers over a full scroll
+const AMP   = 9;       // how far left/right the deer wanders
+const WAVES = 5.0;     // full snake cycles across the whole page
 
 /* Deer path: x as a function of z-progress. Everything else in the scene is
    scattered around it, never on top of it. */
@@ -124,7 +143,7 @@ function pathX(t) {
 
 const GROUND_W = 300;
 const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(GROUND_W, TRACK + 260, 150, 420),
+  new THREE.PlaneGeometry(GROUND_W, TRACK + 320, 150, 400),
   watercolour('#9fae86', { bleed: 0.055, bands: 6.0, scale: 0.045, poster: 0.28 })
 );
 ground.rotation.x = -Math.PI / 2;
@@ -165,7 +184,7 @@ function riverX(z) { return Math.sin(z * 0.0075) * 16 + 58; }
    the surface catches the key light instead of going black at grazing angles. */
 {
   const STEPS = 300, HALF = 5.2;
-  const zStart = 140, zEnd = -(TRACK + 200);
+  const zStart = 160, zEnd = -(TRACK + 220);
   const verts = [], norms = [], idx = [];
   for (let i = 0; i <= STEPS; i++) {
     const z = zStart + (zEnd - zStart) * (i / STEPS);
@@ -207,7 +226,7 @@ function scatter(count, minX, maxX, place, clear = 15) {
   const out = [];
   let guard = 0;
   while (out.length < count && guard++ < count * 30) {
-    const z = -rng() * (TRACK + 140) + 90;
+    const z = -rng() * (TRACK + 150) + 100;
     const side = rng() < 0.5 ? -1 : 1;
     const x = side * (minX + rng() * (maxX - minX));
     if (Math.abs(x - pathX(-z / TRACK)) < clear) continue;   // deer lane
@@ -288,63 +307,230 @@ function mergeTree(specs, trunkH = 2.6) {
 
 /* ------------------------------------------------------------------ deer */
 
-const deer = new THREE.Group();
-const hide     = watercolour('#bfa183', { bleed: 0.035, bands: 6.0, scale: 1.6, poster: 0.4 });
-const hideDark = watercolour('#8d7259', { bleed: 0.03, bands: 6.0, scale: 1.8, poster: 0.4 });
-const cream    = watercolour('#ece0ca', { bleed: 0.05, bands: 3.0, scale: 2.0 });
-const bone     = watercolour('#cfc2a5', { bleed: 0.10, bands: 3.0, scale: 2.2 });
+const DEER_SCALE = 2.85;
 
-function part(geo, mat, x, y, z, rx = 0, rz = 0) {
+/* Ink contour, drawn as an inverted hull: every skin mesh gets a twin pushed
+   out along its normals and rendered back-faces-only, which leaves a line
+   around the silhouette *and* between overlapping limbs. The push is scaled by
+   view depth so the line holds the same weight on screen however the camera
+   moves — a drawn line, not a modelled one. */
+const INK = new THREE.ShaderMaterial({
+  uniforms: {
+    uWidth: { value: 0.0027 },
+    uInk:   { value: new THREE.Color('#42342a') },
+  },
+  vertexShader: /* glsl */`
+    uniform float uWidth;
+    void main(){
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      vec3 n = normalize(normalMatrix * normal);
+      mv.xyz += n * uWidth * -mv.z;
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: /* glsl */`
+    uniform vec3 uInk;
+    void main(){ gl_FragColor = vec4(uInk, 1.0); }
+  `,
+  side: THREE.BackSide,
+});
+
+const hide     = watercolour('#c3a483', { cel: true, bleed: 0.045, bands: 8.0, scale: 1.5, poster: 0.2 });
+const hideMid  = watercolour('#a8825d', { cel: true, bleed: 0.04, bands: 8.0, scale: 1.7, poster: 0.2 });
+const hideDark = watercolour('#8c7057', { cel: true, bleed: 0.04, bands: 8.0, scale: 1.8, poster: 0.2 });
+const cream    = watercolour('#f2e8d4', { cel: true, bleed: 0.05, bands: 8.0, scale: 2.0, poster: 0.2 });
+const bone     = watercolour('#d9ccab', { cel: true, bleed: 0.07, bands: 8.0, scale: 2.2, poster: 0.2 });
+const soot     = watercolour('#4a3a2c', { cel: true, bleed: 0.02, bands: 8.0, scale: 2.4, poster: 0.2 });
+
+/* Every visible piece of the animal goes through here, so nothing can end up
+   on screen without its ink line. */
+function skin(geo, mat, parent, x = 0, y = 0, z = 0) {
   const m = new THREE.Mesh(geo, mat);
   m.position.set(x, y, z);
-  m.rotation.x = rx; m.rotation.z = rz;
-  deer.add(m);
+  parent.add(m);
+  m.add(new THREE.Mesh(geo, INK));
   return m;
 }
 
-/* body */
-const body = part(new THREE.CapsuleGeometry(0.52, 1.6, 3, 8), hide, 0, 1.42, 0, Math.PI / 2);
-body.scale.set(1, 1, 0.8);
-part(new THREE.CapsuleGeometry(0.5, 0.5, 3, 8), cream, 0, 1.15, 0.35, Math.PI / 2).scale.set(0.9, 1, 0.7);
+const deer = new THREE.Group();
+const rig  = new THREE.Group();     // gait bob, roll, pitch and breath live here
+deer.add(rig);
+const torso = new THREE.Group();    // squash and stretch, separately from the legs
+rig.add(torso);
 
-/* neck + head */
-const neck = part(new THREE.CapsuleGeometry(0.3, 0.9, 3, 7), hide, 0, 2.05, -1.05, -0.55);
-const head = part(new THREE.CapsuleGeometry(0.25, 0.55, 3, 7), hide, 0, 2.62, -1.62, Math.PI / 2.2);
-part(new THREE.SphereGeometry(0.1, 6, 5), hideDark, 0, 2.52, -2.05);
-part(new THREE.ConeGeometry(0.13, 0.34, 5), cream, 0.2, 2.85, -1.45, 0, 0.8);
-part(new THREE.ConeGeometry(0.13, 0.34, 5), cream, -0.2, 2.85, -1.45, 0, -0.8);
+/* Proportions are taken off a white-tailed deer rather than eyeballed, because
+   a quadruped reads as the wrong animal the moment they drift: withers at
+   y = 2.05, so the body is 1.15 of that long, the barrel a quarter of it wide,
+   the brisket a little over half of it off the ground, and the legs long and
+   fine. Get those ratios wrong and you have drawn a llama.
 
-/* antlers */
+   Capsules are authored along local Y and laid down along Z, which makes their
+   local scale read as (width, length, depth). */
+const chest = skin(new THREE.CapsuleGeometry(0.46, 0.50, 6, 16), hide, torso, 0, 1.58, -0.42);
+chest.rotation.x = Math.PI / 2;
+chest.scale.set(0.62, 1, 1);
+
+const flank = skin(new THREE.CapsuleGeometry(0.40, 0.50, 6, 16), hide, torso, 0, 1.56, 0.48);
+flank.rotation.x = Math.PI / 2;
+flank.scale.set(0.66, 1, 1);
+
+skin(new THREE.SphereGeometry(0.44, 16, 12), hide, torso, 0, 1.62, -0.72).scale.set(0.66, 0.97, 0.92);
+skin(new THREE.SphereGeometry(0.47, 16, 12), hide, torso, 0, 1.58, 0.74).scale.set(0.72, 0.96, 0.92);
+
+/* the rump flash: the one marking on a deer that a camera overhead can
+   actually find, so it is the one that is worth modelling */
+skin(new THREE.SphereGeometry(0.16, 14, 10), cream, torso, 0, 1.34, 1.20).scale.set(0.95, 1, 0.42);
+
+/* Neck and head hang off their own pivots so they can lead and lag the body. */
+const neckPivot = new THREE.Group();
+neckPivot.position.set(0, 1.82, -0.88);
+rig.add(neckPivot);
+
+skin(new THREE.SphereGeometry(0.27, 12, 10), hide, neckPivot, 0, 0.02, 0.06).scale.set(0.8, 1, 1);
+const neckMesh = skin(new THREE.CapsuleGeometry(0.20, 0.52, 5, 13), hide, neckPivot, 0, 0.375, -0.265);
+neckMesh.rotation.x = -0.615;
+neckMesh.scale.set(0.88, 1, 1);
+
+const headPivot = new THREE.Group();
+headPivot.position.set(0, 0.75, -0.53);
+neckPivot.add(headPivot);
+
+const skull = skin(new THREE.CapsuleGeometry(0.16, 0.16, 5, 12), hide, headPivot, 0, 0, -0.10);
+skull.rotation.x = Math.PI / 2 - 0.22;
+skull.scale.set(0.88, 1, 1);
+
+const muzzle = skin(new THREE.CapsuleGeometry(0.105, 0.18, 4, 11), hide, headPivot, 0, -0.075, -0.45);
+muzzle.rotation.x = Math.PI / 2 - 0.22;
+muzzle.scale.set(0.9, 1, 1);
+
+skin(new THREE.SphereGeometry(0.078, 9, 7), soot, headPivot, 0, -0.155, -0.635);
+[-1, 1].forEach(s => skin(new THREE.SphereGeometry(0.05, 8, 6), soot, headPivot, 0.125 * s, 0.05, -0.185));
+
+/* ears: their own pivots, because a deer that never flicks an ear is furniture */
+const ears = [-1, 1].map(s => {
+  const p = new THREE.Group();
+  p.position.set(0.115 * s, 0.14, -0.02);
+  p.rotation.set(-0.2, 0, 0.92 * s);
+  headPivot.add(p);
+  skin(new THREE.CapsuleGeometry(0.072, 0.15, 4, 10), cream, p, 0, 0.15, 0).scale.set(1, 1, 0.45);
+  return p;
+});
+
+/* antlers: a swept beam per side with forward tines, built to read as a
+   spreading fork from directly above rather than in profile */
 [-1, 1].forEach(s => {
-  part(new THREE.CylinderGeometry(0.05, 0.07, 0.7, 5), bone, 0.15 * s, 3.05, -1.52, -0.3, 0.62 * s);
-  part(new THREE.CylinderGeometry(0.035, 0.045, 0.44, 5), bone, 0.46 * s, 3.28, -1.74, -0.6, 1.1 * s);
-  part(new THREE.CylinderGeometry(0.035, 0.045, 0.38, 5), bone, 0.4 * s, 3.34, -1.28, 0.45, 0.75 * s);
+  const base = new THREE.Group();
+  base.position.set(0.085 * s, 0.19, -0.05);
+  base.rotation.set(-0.2, 0, 0.46 * s);
+  headPivot.add(base);
+  skin(new THREE.CylinderGeometry(0.032, 0.05, 0.38, 7), bone, base, 0, 0.18, 0);
+
+  const upper = new THREE.Group();
+  upper.position.set(0, 0.36, 0);
+  upper.rotation.set(0.42, 0, 0.40 * s);
+  base.add(upper);
+  skin(new THREE.CylinderGeometry(0.022, 0.034, 0.44, 6), bone, upper, 0, 0.21, 0);
+
+  const tine = (parent, y, len, rx, rz) => {
+    const t = skin(new THREE.CylinderGeometry(0.015, 0.025, len, 6), bone, parent, 0, y, 0);
+    t.rotation.set(rx, 0, rz);
+    t.translateY(len / 2);
+  };
+  tine(base, 0.30, 0.32, -1.05, 0.14 * s);
+  tine(upper, 0.18, 0.30, -1.00, 0.08 * s);
+  tine(upper, 0.38, 0.24, -0.75, -0.12 * s);
 });
 
-/* tail */
-part(new THREE.ConeGeometry(0.16, 0.42, 5), cream, 0, 1.75, 1.02, 0.9);
+/* Tail: brown on top and white underneath, which is the whole point of a
+   white-tail. Hanging, the camera overhead sees only the brown; when the
+   animal breaks into a trot the tail flags up and the white turns to face
+   the camera all at once. */
+const tailPivot = new THREE.Group();
+tailPivot.position.set(0, 1.74, 1.13);
+rig.add(tailPivot);
+skin(new THREE.CapsuleGeometry(0.085, 0.20, 4, 10), hideMid, tailPivot, 0, -0.16, 0.06).scale.set(1.15, 1, 0.6);
+skin(new THREE.CapsuleGeometry(0.072, 0.20, 4, 10), cream, tailPivot, 0, -0.16, -0.03).scale.set(1.1, 1, 0.38);
 
-/* legs: upper + lower, animated in a two-beat gait */
-const legs = [];
-[[0.46, -0.74], [-0.46, -0.74], [0.5, 0.8], [-0.5, 0.8]].forEach(([x, z], i) => {
-  const hip = new THREE.Group();
-  hip.position.set(x, 1.32, z);
-  const upper = new THREE.Mesh(new THREE.CapsuleGeometry(0.13, 0.62, 3, 6), hide);
-  upper.position.y = -0.36;
-  const knee = new THREE.Group();
-  knee.position.y = -0.72;
-  const lower = new THREE.Mesh(new THREE.CapsuleGeometry(0.09, 0.6, 3, 6), hideDark);
-  lower.position.y = -0.34;
-  const hoof = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.08, 0.16, 5), hideDark);
-  hoof.position.y = -0.7;
-  knee.add(lower, hoof);
-  hip.add(upper, knee);
-  deer.add(hip);
-  legs.push({ hip, knee, phase: (i === 0 || i === 3) ? 0 : Math.PI });
+/* Legs. Each is a two-bone chain solved to a foot target rather than swung on
+   a sine, which is what lets the hooves stay planted through the stance
+   instead of skating. Hind legs are longer and far more angulated than the
+   fore, which is most of what makes a quadruped read as a deer and not a dog.
+   Order is [front-right, front-left, hind-right, hind-left]; +x is the
+   animal's right, because it faces -z. */
+const legs = [
+  { x:  0.235, z: -0.70, hipY: 1.28, l1: 0.62, l2: 0.70 },
+  { x: -0.235, z: -0.70, hipY: 1.28, l1: 0.62, l2: 0.70 },
+  { x:  0.275, z:  0.72, hipY: 1.42, l1: 0.74, l2: 0.82 },
+  { x: -0.275, z:  0.72, hipY: 1.42, l1: 0.74, l2: 0.82 },
+].map((L, i) => {
+  const fore = i < 2;
+  skin(new THREE.CapsuleGeometry(fore ? 0.155 : 0.185, 0.22, 5, 11), hide, torso,
+    L.x * 0.95, L.hipY + 0.1, L.z).scale.set(0.8, 1, 0.85);   // shoulder / thigh mass
+
+  L.hip = new THREE.Group();
+  L.hip.position.set(L.x, L.hipY, L.z);
+  rig.add(L.hip);
+
+  skin(new THREE.CapsuleGeometry(fore ? 0.105 : 0.125, L.l1 - 0.26, 4, 10), hide, L.hip, 0, -L.l1 / 2, 0)
+    .scale.set(0.85, 1, 1);
+
+  L.knee = new THREE.Group();
+  L.knee.position.y = -L.l1;
+  L.hip.add(L.knee);
+  skin(new THREE.CapsuleGeometry(0.068, L.l2 - 0.30, 4, 9), hideMid, L.knee, 0, -(L.l2 - 0.14) / 2, 0);
+
+  L.fet = new THREE.Group();
+  L.fet.position.y = -(L.l2 - 0.14);
+  L.knee.add(L.fet);
+  skin(new THREE.CylinderGeometry(0.072, 0.056, 0.14, 8), soot, L.fet, 0, -0.07, 0);
+  return L;
 });
 
-deer.scale.setScalar(2.2);
+/* Footfall order. A walk is four-beat and lateral-sequence — left hind, left
+   fore, right hind, right fore — and a trot is two-beat on diagonal pairs.
+   The two sets are crossfaded as the animal changes pace. */
+const WALK_PHASE = [0.75, 0.25, 0.50, 0.00];
+const TROT_PHASE = [0.00, 0.50, 0.50, 0.00];
+
+/* Two-bone IK in the sagittal plane. `fwd` is how far in front of the hip the
+   hoof wants to be, `down` how far below it; the solution always puts the
+   joint behind the hip-to-hoof line, which is the way both the carpus and the
+   hock fold. */
+function solveLeg(l1, l2, fwd, down) {
+  const theta = Math.atan2(fwd, down);
+  const d = Math.min(Math.hypot(fwd, down), (l1 + l2) * 0.999);
+  const a = Math.acos(clamp((d * d + l1 * l1 - l2 * l2) / (2 * d * l1), -1, 1));
+  const b = Math.acos(clamp((d * d - l1 * l1 - l2 * l2) / (2 * l1 * l2), -1, 1));
+  return { hip: theta - a, knee: b };
+}
+
+deer.scale.setScalar(DEER_SCALE);
 scene.add(deer);
+
+/* Contact shadow: a soft ink ellipse laid on the terrain, offset along the key
+   light. Without it the animal reads as pasted on top of the landscape rather
+   than standing in it. */
+const shadowGeo = new THREE.PlaneGeometry(1, 1);
+shadowGeo.rotateX(-Math.PI / 2);
+const shadow = new THREE.Mesh(shadowGeo, new THREE.ShaderMaterial({
+  uniforms: { uInk: { value: new THREE.Color('#5e5847') }, uOpacity: { value: 0.34 } },
+  vertexShader: /* glsl */`
+    varying vec2 vUv;
+    void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+  `,
+  fragmentShader: /* glsl */`
+    varying vec2 vUv;
+    uniform vec3 uInk;
+    uniform float uOpacity;
+    void main(){
+      float d = length(vUv - 0.5) * 2.0;
+      gl_FragColor = vec4(uInk, smoothstep(1.0, 0.15, d) * uOpacity);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+}));
+scene.add(shadow);
 
 /* --------------------------------------------------------- the paper pass */
 
@@ -446,59 +632,229 @@ resize();
 
 /* ----------------------------------------------------------- scroll drive */
 
-let target = 0, current = 0, travelled = 0;
-
+let target = 0;
 function readScroll() {
   const max = document.documentElement.scrollHeight - innerHeight;
   target = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
 }
 addEventListener('scroll', readScroll, { passive: true });
 readScroll();
-current = target;
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const tmp = new THREE.Vector3();
+
+/* The pace, in world units per second. The animal will amble, and it will trot
+   to reel in a fast scroll, and it will do nothing faster than that — the cap
+   is the whole point. MAX_LAG is the safety valve for an anchor jump, where
+   there is no walk that would ever catch up. */
+const AMBLE   = 4.2;
+const TROT    = 14.0;
+const MAX_LAG = 44;
+
+let along = 0;          // world units of track actually walked
+let speed = 0;          // current pace
+let cycle = 0;          // gait cycle position, 0..1
+let facing = 0;         // smoothed 0 or PI, so scrolling up turns the deer round
+let heading = 1;
+let yawSmooth = 0, yawLag = 0;
+let stillFor = 0, graze = 0;
+let last = 0;
+
+along = target * TRACK;
+
+const camPos = new THREE.Vector3();
+const camAim = new THREE.Vector3();
+const camWant = new THREE.Vector3();
+const aimWant = new THREE.Vector3();
+let camReady = false;
 
 function frame(ms) {
   requestAnimationFrame(frame);
   const t = ms * 0.001;
+  const dt = last ? Math.min(0.05, t - last) : 0.016;
+  last = t;
 
-  const prev = current;
-  current += (target - current) * (reduced ? 1 : 0.075);
-  const step = Math.abs(current - prev) * TRACK;
-  travelled += step;
+  /* --- locomotion ------------------------------------------------------- */
 
-  // deer position along the snaking path
-  const z = -current * TRACK;
-  const x = pathX(current);
-  const y = terrainH(x, z);
-  deer.position.set(x, y, z);
+  const want = target * TRACK;
+  let gap = want - along;
+  if (gap >  MAX_LAG) { along = want - MAX_LAG; gap =  MAX_LAG; }
+  if (gap < -MAX_LAG) { along = want + MAX_LAG; gap = -MAX_LAG; }
 
-  // face the direction of travel
-  const dt = 0.0008;
-  const ahead = pathX(Math.min(1, current + dt));
-  deer.rotation.y = Math.atan2(ahead - x, dt * TRACK);
+  const dist = Math.abs(gap);
+  const wantSpeed = dist < 0.4 ? 0 : clamp(dist * 0.85, 1.2, TROT);
+  speed += (wantSpeed - speed) * Math.min(1, (wantSpeed > speed ? 4.5 : 3.0) * dt);
+  if (speed < 0.05) speed = 0;
 
-  // gait: stride length tied to real distance, plus an idle amble when the
-  // page is still, so the animal never freezes mid-step
-  const idle = reduced ? 0 : t * 1.1;
-  const stride = travelled * 1.15 + idle;
-  legs.forEach(({ hip, knee, phase }) => {
-    const s = Math.sin(stride + phase);
-    hip.rotation.x = s * 0.55;
-    knee.rotation.x = Math.max(0, -Math.cos(stride + phase)) * 0.6;
-  });
-  deer.position.y += Math.abs(Math.sin(stride)) * 0.07;   // shoulder bob
-  head.rotation.z = Math.sin(stride * 0.5) * 0.06;
-  neck.rotation.x = -0.55 + Math.sin(stride * 0.5) * 0.04;
+  let move = Math.sign(gap) * speed * dt;
+  if (Math.abs(move) > dist) move = gap;
+  if (reduced) { move = gap; speed = 0; }
+  along += move;
 
-  // camera: high and slightly behind — an off bird's-eye that keeps the deer
-  // in the clear centre lane while the type sits in the gutters
-  const lag = x * 0.22;                       // a little sway, never a follow
-  camera.position.set(lag, y + 42, z + 34);
-  tmp.set(x * 0.35, y + 1.5, z - 13);
-  camera.lookAt(tmp);
-  camera.rotation.z = Math.sin(current * 6.0) * 0.012;
+  const u = along / TRACK;
+  const x = pathX(u);
+  const z = -along;
+  const groundY = terrainH(x, z);
+  deer.position.set(x, groundY, z);
+
+  /* Face the way it is travelling. Scrolling back up is a real about-turn
+     rather than a moonwalk, so the heading only flips once the animal is
+     properly under way and the turn itself is eased. */
+  if (speed > 1.0 && Math.abs(gap) > 0.6) heading = Math.sign(gap) || heading;
+  facing += ((heading > 0 ? 0 : Math.PI) - facing) * Math.min(1, dt * 2.6);
+
+  const look = 0.0012;
+  const pathYaw = Math.atan2(pathX(u + look) - x, look * TRACK);
+  const yaw = pathYaw + facing;
+  deer.rotation.y = yaw;
+
+  // how much the head has to catch up by: drives the neck's overlapping action
+  const yawRate = dt > 0 ? (yaw - yawSmooth) / dt : 0;
+  yawSmooth = yaw;
+  yawLag += (yawRate - yawLag) * Math.min(1, dt * 4.0);
+
+  /* --- gait ------------------------------------------------------------- */
+
+  // 0 while standing, 1 once properly walking: everything the legs do is
+  // faded in through this, so the animal settles onto its feet rather than
+  // marching on the spot when the page goes quiet
+  const g = smooth(0.3, 1.8, speed);
+  const trotMix = smooth(AMBLE * 1.25, TROT * 0.72, speed);
+
+  // stride lengthens with pace, and the cycle is clocked off distance covered
+  // rather than off time, so the hooves cannot skate whatever the speed
+  const strideLocal = 1.05 + Math.sqrt(Math.max(0, speed)) * 0.22;
+  cycle += Math.abs(move) / (strideLocal * DEER_SCALE);
+  cycle -= Math.floor(cycle);
+
+  const duty = 0.66 + (0.44 - 0.66) * trotMix;   // fraction of the cycle on the ground
+  const liftMax = 0.17 + 0.19 * trotMix;
+  const sweep = strideLocal * duty;
+
+  stillFor = g < 0.05 ? stillFor + dt : 0;
+
+  /* --- body ------------------------------------------------------------- */
+
+  // the withers rise and fall twice per cycle, and the barrel rolls once
+  const bob = Math.sin(cycle * TAU * 2 + 0.5) * (0.035 + 0.045 * trotMix) * g;
+  const breath = reduced ? 0 : Math.sin(t * 1.15) * 0.012 * (1 - g * 0.7);
+  rig.position.y = bob + breath;
+
+  // squash and stretch, tied to the bob rather than sprinkled on top of it
+  const sq = bob * 0.6 + breath * 0.5;
+  torso.scale.set(1 - sq * 0.55, 1 + sq, 1 - sq * 0.35);
+
+  const gaitRoll = Math.sin(cycle * TAU) * (0.045 + 0.03 * trotMix) * g;
+  const bank = clamp(-yawLag * 0.42, -0.16, 0.16);   // lean into the turns
+
+  /* --- legs ------------------------------------------------------------- */
+
+  const cy = Math.cos(yaw), sy = Math.sin(yaw);
+  let foreGround = 0, hindGround = 0, rightGround = 0, leftGround = 0;
+
+  for (let i = 0; i < 4; i++) {
+    const L = legs[i];
+    const phase = WALK_PHASE[i] + (TROT_PHASE[i] - WALK_PHASE[i]) * trotMix;
+    let p = cycle + phase;
+    p -= Math.floor(p);
+
+    let fwd, lift;
+    if (p < duty) {
+      // stance: the hoof is planted, so in body space it tracks straight back
+      // at exactly the speed the body is moving forward
+      fwd = sweep * (0.5 - p / duty);
+      lift = 0;
+    } else {
+      // swing: forward on an eased arc, lifting fast and landing soft
+      const q = (p - duty) / (1 - duty);
+      fwd = sweep * (-0.5 + q * q * (3 - 2 * q));
+      lift = liftMax * Math.sin(Math.PI * Math.pow(q, 0.85));
+    }
+    fwd *= g;
+    lift *= g;
+
+    // sample the terrain under this hoof so the deer walks the ground it is on
+    const wx = deer.position.x + (L.x * cy + L.z * sy) * DEER_SCALE;
+    const wz = deer.position.z + (-L.x * sy + L.z * cy) * DEER_SCALE;
+    const hg = terrainH(wx, wz);
+    if (i < 2) foreGround += hg * 0.5; else hindGround += hg * 0.5;
+    if (i % 2 === 0) rightGround += hg * 0.5; else leftGround += hg * 0.5;
+
+    L.down = rig.position.y + L.hipY + (deer.position.y - hg) / DEER_SCALE - lift;
+    L.fwd = fwd;
+    L.lift = lift;
+  }
+
+  // pitch and roll off the ground the hooves actually found
+  const pitch = -Math.atan2(hindGround - foreGround, 1.42 * DEER_SCALE) * 0.75;
+  const roll = Math.atan2(rightGround - leftGround, 0.51 * DEER_SCALE) * 0.55;
+  rig.rotation.x = pitch;
+  rig.rotation.z = roll + gaitRoll + bank;
+  rig.rotation.y = Math.sin(cycle * TAU) * 0.03 * g;
+
+  for (let i = 0; i < 4; i++) {
+    const L = legs[i];
+    const s = solveLeg(L.l1, L.l2, L.fwd, L.down);
+    // the hip is a child of the pitched rig, so undo the pitch to keep the
+    // legs plumb and the hooves where the terrain sample put them
+    L.hip.rotation.x = s.hip - pitch;
+    L.knee.rotation.x = s.knee;
+    // level the hoof against the ground, toe dropping through the swing
+    L.fet.rotation.x = clamp(-(s.hip + s.knee) + (L.lift / Math.max(liftMax, 1e-4)) * 0.45, -1.0, 1.0);
+  }
+
+  /* --- head, ears, tail: the parts that carry the life -------------------- */
+
+  // the neck leads, the head trails and catches up a beat later
+  neckPivot.rotation.y = clamp(-yawLag * 0.30, -0.30, 0.30);
+  headPivot.rotation.y = clamp(-yawLag * 0.16, -0.22, 0.22) + Math.sin(t * 0.43) * 0.05 * (1 - g);
+
+  // the deer grazes when the page has been still a while, and lifts its head
+  // the moment it starts moving again
+  const wantGraze = (!reduced && stillFor > 2.6) ? 0.5 + Math.sin(t * 0.5) * 0.12 : 0;
+  graze += (wantGraze - graze) * Math.min(1, dt * (wantGraze > graze ? 0.9 : 3.5));
+
+  const nod = Math.sin(cycle * TAU + 1.1) * 0.055 * g;
+  neckPivot.rotation.x = graze * 0.95 + nod - pitch * 0.5;
+  neckPivot.rotation.z = clamp(-yawLag * 0.14, -0.12, 0.12);
+  // the head stays level while the body works underneath it
+  headPivot.rotation.x = -graze * 0.35 - nod * 1.4 - pitch * 0.4 + 0.1 * g;
+
+  if (!reduced) {
+    ears.forEach((ear, i) => {
+      // an ear twitches on its own clock, in short snaps rather than a wobble
+      const p = t * 0.41 + i * 3.7;
+      const n = Math.floor(p), f = p - n;
+      const fire = hash1(n + i * 17) > 0.55 ? 1 : 0;
+      const flick = fire * Math.exp(-f * 8.5) * Math.sin(f * 38);
+      ear.rotation.x = -0.16 + flick * 0.5 - g * 0.18;
+      ear.rotation.y = flick * 0.3 * (i ? 1 : -1);
+    });
+  }
+
+  // the tail follows the body a beat late, and flags up at a trot
+  tailPivot.rotation.x = -0.1 - trotMix * 1.25 - g * 0.15;
+  tailPivot.rotation.z = Math.sin(t * 1.9 + cycle * TAU) * (0.14 + 0.2 * g) + clamp(yawLag * 0.5, -0.35, 0.35);
+
+  /* --- contact shadow ---------------------------------------------------- */
+
+  shadow.position.set(x + 1.1, groundY + 0.09, z - 0.8);
+  shadow.rotation.y = yaw;
+  const lifted = 1 + bob * 1.6;
+  shadow.scale.set(4.1 * lifted, 1, 7.6 * lifted);
+  shadow.material.uniforms.uOpacity.value = 0.34 / lifted;
+
+  /* --- camera ------------------------------------------------------------ */
+
+  // high enough to keep the deer's whole path in the clear centre lane, low
+  // enough that the animal reads as a body in the round and not as a plan view
+  camWant.set(x * 0.18, groundY + 22.5, z + 26.8);
+  aimWant.set(x * 0.46, groundY + 2.6, z - 14.0);
+  if (!camReady) { camPos.copy(camWant); camAim.copy(aimWant); camReady = true; }
+  camPos.lerp(camWant, Math.min(1, dt * 3.2));
+  camAim.lerp(aimWant, Math.min(1, dt * 2.6));
+  camera.position.copy(camPos);
+  camera.lookAt(camAim);
+  camera.rotation.z = Math.sin(u * 6.0) * 0.012;
 
   postMat.uniforms.uTime.value = t;
 
