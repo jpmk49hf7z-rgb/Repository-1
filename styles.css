@@ -1,0 +1,255 @@
+/* deer + almond — watercolour redesign
+   Layout rule: every text block is pinned to the left or right gutter so the
+   centre corridor stays clear for the deer walking through the 3D scene. */
+
+:root{
+  --ink:        #1a1712;
+  --ink-soft:   #3d3730;
+  --paper:      #f4efe3;
+  --wash:       rgba(244, 239, 227, 0.78);
+  --wash-edge:  rgba(244, 239, 227, 0.00);
+  --ember:      #c2451f;
+  --moss:       #4c5a3c;
+  --corridor:   44vw;  /* clear centre lane for the deer */
+  --gutter:     clamp(1.25rem, 5vw, 5.5rem);
+}
+
+*{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:#e9e3d4;
+  color:var(--ink);
+  font-family:'Mulish', 'Montserrat', system-ui, sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ---------- background layers ---------- */
+
+#scene{
+  position:fixed; inset:0;
+  width:100%; height:100%;
+  display:block;
+  z-index:0;
+}
+
+/* paper grain + edge wash: lifts the left/right thirds so ink-dark type
+   always sits on a pale ground, whatever the scene is doing underneath. */
+.paper{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(90deg, var(--wash) 0%, rgba(244,239,227,.45) 26%, var(--wash-edge) 42%,
+                            var(--wash-edge) 58%, rgba(244,239,227,.45) 74%, var(--wash) 100%),
+    radial-gradient(120% 55% at 50% 0%, rgba(255,252,244,.30), transparent 62%);
+  mix-blend-mode:normal;
+}
+.paper::after{
+  content:""; position:absolute; inset:0;
+  opacity:.10;
+  background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'>\
+<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/>\
+<feColorMatrix type='saturate' values='0'/></filter>\
+<rect width='180' height='180' filter='url(%23n)'/></svg>");
+  mix-blend-mode:multiply;
+}
+
+/* ---------- nav ---------- */
+
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem var(--gutter);
+  backdrop-filter:blur(6px);
+  background:linear-gradient(#f4efe3ee, #f4efe300);
+}
+.brand{
+  font-family:'Agdasima', 'Montserrat', sans-serif;
+  font-size:1.9rem; font-weight:700; letter-spacing:.06em;
+  color:var(--ink); text-decoration:none; line-height:1;
+}
+.nav nav{ display:flex; gap:clamp(.9rem,2.4vw,2.2rem); }
+.nav nav a{
+  font-family:'Montserrat', sans-serif;
+  font-size:.78rem; letter-spacing:.22em; text-transform:lowercase;
+  color:var(--ink-soft); text-decoration:none;
+  padding-bottom:.2rem; border-bottom:1px solid transparent;
+  transition:border-color .25s, color .25s;
+}
+.nav nav a:hover{ color:var(--ember); border-color:var(--ember); }
+
+/* ---------- panels & the centre corridor ---------- */
+
+main{ position:relative; z-index:5; }
+
+.panel{
+  min-height:100vh;
+  display:flex; align-items:center;
+  padding:14vh var(--gutter);
+}
+
+/* The hero is the one centred block, so it sits high and leaves the lower
+   half of the frame to the deer rather than overlapping it. */
+.hero{ align-items:flex-start; padding-top:15vh; }
+
+.block{
+  width:min(clamp(20rem, 30vw, 34rem), calc((100vw - var(--corridor)) / 2 - var(--gutter)));
+  opacity:0; transform:translateY(28px);
+  transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.block.left { margin-right:auto; }
+.block.right{ margin-left:auto;  text-align:right; }
+.block.center{ margin:0 auto; text-align:center; width:min(38rem, 90vw); }
+.block.is-visible{ opacity:1; transform:none; }
+
+/* ---------- type ---------- */
+
+.mark{
+  font-family:'Agdasima', sans-serif;
+  font-size:clamp(5rem, 18vw, 15rem);
+  font-weight:700; letter-spacing:.02em;
+  margin:0; line-height:.9;
+  color:var(--ink);
+  text-shadow:0 1px 0 rgba(255,255,255,.5);
+}
+.tagline{
+  font-family:'Montserrat', sans-serif;
+  font-size:clamp(.8rem, 1.5vw, 1.05rem);
+  letter-spacing:.34em;
+  color:var(--ink-soft); margin:.9rem 0 0;
+}
+.scroll-cue{
+  font-family:'Montserrat', sans-serif;
+  font-size:.7rem; letter-spacing:.4em;
+  color:var(--ink-soft); margin-top:3rem;
+  animation:drift 2.6s ease-in-out infinite;
+}
+@keyframes drift{ 0%,100%{ transform:translateY(0); opacity:.55 } 50%{ transform:translateY(9px); opacity:1 } }
+
+.display{
+  font-family:'Agdasima', sans-serif;
+  font-size:clamp(2.1rem, 4.6vw, 3.9rem);
+  font-weight:700; letter-spacing:.03em; line-height:1.05;
+  margin:0 0 1.1rem; color:var(--ink);
+}
+.lede{
+  font-family:'Mulish', sans-serif;
+  font-size:clamp(1rem, 1.5vw, 1.2rem);
+  line-height:1.65; color:var(--ink-soft); margin:0 0 1.6rem;
+}
+.note{
+  font-family:'Mulish', sans-serif;
+  font-size:.86rem; line-height:1.75; color:var(--ink-soft);
+  margin:0 0 2rem; opacity:.9;
+}
+.price{
+  font-family:'Montserrat', sans-serif;
+  font-size:.95rem; letter-spacing:.06em; color:var(--ink); margin:.2rem 0;
+}
+.price.sub{ color:var(--ink-soft); font-size:.85rem; letter-spacing:.14em; }
+
+.rule{
+  font-family:'Montserrat', sans-serif;
+  color:var(--moss); letter-spacing:.1em; margin:0 0 1.4rem; opacity:.7;
+}
+
+.dishes{ list-style:none; margin:0; padding:0; }
+.dishes li{ margin:0 0 1.7rem; }
+.dishes.tight li{ margin-bottom:.9rem; }
+.dishes h3{
+  font-family:'Montserrat', sans-serif;
+  font-weight:500; font-size:clamp(1rem, 1.5vw, 1.18rem);
+  letter-spacing:.01em; line-height:1.35; margin:0 0 .3rem; color:var(--ink);
+}
+.dishes p{
+  font-family:'Mulish', sans-serif;
+  font-size:.92rem; line-height:1.55; color:var(--ink-soft); margin:0;
+}
+.up{ color:var(--ember); font-weight:600; white-space:nowrap; }
+.emoji{
+  font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;
+  font-size:1em;
+}
+
+.btn{
+  display:inline-block;
+  font-family:'Montserrat', sans-serif;
+  font-size:.76rem; letter-spacing:.28em; text-transform:lowercase;
+  color:var(--ink); text-decoration:none;
+  padding:.9rem 2.1rem;
+  border:1px solid var(--ink);
+  transition:background .3s, color .3s;
+}
+.btn:hover{ background:var(--ink); color:var(--paper); }
+
+/* ---------- gallery ---------- */
+
+.grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem; }
+.grid figure{
+  margin:0; aspect-ratio:4/3; overflow:hidden; border-radius:2px;
+  background:rgba(26,23,18,.06);
+}
+.grid img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:saturate(.92) contrast(1.02);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.grid figure:hover img{ transform:scale(1.04); }
+
+/* ---------- footer ---------- */
+
+footer{
+  position:relative; z-index:5;
+  background:linear-gradient(#f4efe3cc, #efe7d6);
+  backdrop-filter:blur(8px);
+  padding:6rem var(--gutter) 2.5rem;
+  border-top:1px solid rgba(26,23,18,.12);
+}
+.foot-inner{
+  display:grid; gap:2.5rem;
+  grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
+}
+.foot-col h3{
+  font-family:'Agdasima', sans-serif;
+  font-size:1.5rem; letter-spacing:.05em; margin:0 0 .9rem; color:var(--ink);
+}
+.foot-col p, .foot-col li{
+  font-family:'Mulish', sans-serif;
+  font-size:.9rem; line-height:1.7; color:var(--ink-soft); margin:0 0 .8rem;
+}
+.foot-col a{ color:var(--ink-soft); text-decoration:none; border-bottom:1px solid rgba(26,23,18,.25); }
+.foot-col a:hover{ color:var(--ember); border-color:var(--ember); }
+.days{ opacity:.75; }
+.credits, .social{ list-style:none; margin:0 0 1rem; padding:0; }
+.credits li, .social li{ margin-bottom:.5rem; }
+.colophon{
+  margin:4rem 0 0; text-align:center;
+  font-family:'Montserrat', sans-serif;
+  font-size:.7rem; letter-spacing:.18em; color:var(--ink-soft); opacity:.7;
+}
+
+/* ---------- responsive: on narrow screens the corridor collapses and the
+     deer runs behind a single stacked column, so the wash goes full-width ---- */
+
+@media (max-width: 900px){
+  :root{ --corridor:0vw; }
+  .block{ width:100%; }
+  .block.right{ text-align:left; }
+  .paper{
+    background:
+      linear-gradient(180deg, rgba(244,239,227,.72), rgba(244,239,227,.62)),
+      radial-gradient(120% 80% at 50% 0%, rgba(255,252,244,.5), transparent 60%);
+  }
+  .panel{ min-height:auto; padding:12vh var(--gutter); }
+  .grid{ grid-template-columns:1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .block{ opacity:1; transform:none; transition:none; }
+  .scroll-cue{ animation:none; }
+}
