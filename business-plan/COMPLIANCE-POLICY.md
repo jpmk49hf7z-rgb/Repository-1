@@ -2,7 +2,7 @@
 
 **Status: draft for review by counsel.** This document states the operating rules the business binds itself to. It is written to be reviewed as a standalone instrument and to be referenced by the MSA.
 
-Nothing here is legal advice. Items marked **[COUNSEL]** are specific questions for the reviewing attorney.
+Nothing here is legal advice. Items marked **[COUNSEL]** are specific questions for the reviewing attorney; items marked **[ACCOUNTANT]** are for a cross-border CPA and do not need attorney time.
 
 ---
 
@@ -11,7 +11,7 @@ Nothing here is legal advice. Items marked **[COUNSEL]** are specific questions 
 **A Manitoba share corporation**, already incorporated and held by the principal, who is sole director, sole signatory, and account holder for all financial and platform accounts. All work is performed by the principal using AI systems under the principal's direction and review. The company has no US presence: no US office, no US employees, no dependent agent in the US, and no US-situated equipment.
 
 **[COUNSEL]** Confirm professional liability (E&O) coverage timing — before the first paid engagement, or at a stated client count.
-**[COUNSEL]** Confirm whether Manitoba Retail Sales Tax applies to any part of the service offering, including for the small number of Canadian clients we may take.
+**[ACCOUNTANT]** Confirm whether Manitoba Retail Sales Tax applies to any part of the service offering, including for the small number of Canadian clients we may take.
 
 ### Contract terms to be reflected in the MSA
 
@@ -156,7 +156,7 @@ Costs are largely USD too — LLM APIs, sending tools, domains — so billing in
 |---|---|---|
 | Master Services Agreement | 6–8 pp | Claude drafts → **counsel reviews** |
 | Statement of Work template | 2 pp | Claude drafts → counsel reviews |
-| This Compliance & Ethics Policy | 4 pp | **Counsel reviews** |
+| This Compliance & Ethics Policy | 6–7 pp | **Counsel reviews** |
 | CASL screening procedure + consent/exemption log | 2 pp | Claude drafts → **counsel reviews** |
 | Form W-8BEN-E (for US clients) | 1 pp | Principal signs; no drafting needed |
 | Website privacy policy + terms | 3 pp | Claude drafts → counsel reviews |
