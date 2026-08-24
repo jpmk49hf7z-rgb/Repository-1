@@ -1,0 +1,52 @@
+# Example category config — the unit of work for one prospect or client.
+#
+# Everything the scanner needs lives here: who we are measuring, who they
+# compete with, and the language their buyers actually use. Prompt generation
+# is deterministic from this file, so two scans a month apart are comparable.
+slug: field-service-hvac
+category: field service management software
+audience: HVAC contractors
+geo: United States
+
+client:
+  name: Acme Field
+  domain: acmefield.io
+  aliases: []
+  # Set true if the brand name is also an ordinary English word, so the
+  # detector demands corroboration before counting a match.
+  ambiguous: false
+
+# At least one competitor is required — share of voice needs a comparison set.
+# Pick the names a buyer would actually shortlist, not the whole market.
+competitors:
+  - name: Jobber
+    domain: getjobber.com
+    aliases: ["Jobber software"]
+  - name: ServiceTitan
+    domain: servicetitan.com
+  - name: Housecall Pro
+    domain: housecallpro.com
+  - name: FieldEdge
+    domain: fieldedge.com
+  - name: ServiceM8
+    domain: servicem8.com
+
+# Jobs the buyer is trying to get done, in their words.
+use_cases:
+  - scheduling technicians
+  - invoicing on site
+  - dispatch routing
+  - tracking parts inventory
+  - collecting payment in the field
+
+# Features that decide a deal.
+buying_criteria:
+  - QuickBooks integration
+  - offline mobile mode
+  - automated customer text reminders
+
+# Problem-led queries, where the buyer does not yet know the category name.
+problems:
+  - technicians missing appointments
+  - late invoices
+  - double-booked jobs

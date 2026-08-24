@@ -1,0 +1,8 @@
+.env
+data/
+reports/*.html
+reports/*.json
+__pycache__/
+*.pyc
+.venv/
+config/settings.yaml
