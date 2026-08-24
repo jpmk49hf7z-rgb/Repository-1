@@ -143,8 +143,8 @@ Base case assumes 3,000 emails/month at steady state, a 4.0% reply rate, 25% of 
 
 | Item | Cost |
 |---|---|
-| Wyoming LLC filing (or principal's home state — see §7) | $100 |
-| Registered agent, year 1 | $50 |
+| Entity formation | $0 — Manitoba corporation already held |
+| US-domiciled USD account setup + cross-border accounting reserve | $150 |
 | Primary domain + 8 sending domains | $110 |
 | 10 sending mailboxes, 3 months prepaid | $75 |
 | Smartlead, 3 months ($39/mo, unlimited mailboxes) | $117 |
@@ -194,7 +194,13 @@ I do not run continuously. I run when invoked. Every recurring process must ther
 
 Detail and the documents for counsel are in `COMPLIANCE-POLICY.md`. The essentials:
 
-**Entity.** A single-member LLC. If the principal is a US resident, forming in their **home state is usually simpler** for banking and tax than Wyoming or Delaware, despite Wyoming's lower fees ($100 filing, $60/yr vs Delaware's $110 and $300/yr franchise tax) — confirm with counsel. Stripe Atlas ($500) is unnecessary here and would consume half the starting capital.
+**Entity — a Manitoba share corporation.** The principal already holds one, and it is the right vehicle, not merely an acceptable one. Selling services into the US from a Canadian company is routine and does not meaningfully affect market access at this deal size. Three consequences matter:
+
+- **Tax.** Manitoba levies **0% provincial tax** on the first $500,000 of active business income for a Canadian-Controlled Private Corporation; with the 9% federal small-business rate that is a **9% combined rate**, the lowest in Canada alongside Yukon. The base case's ~$353,000 pre-tax profit sits entirely inside that band. This is a deferral advantage rather than an absolute one — personal tax applies when profits are distributed — but the plan reinvests through month 6 and holds reserves after, so the deferral is real money. *Condition:* CCPC status requires Canadian control. Without it the general rate applies (12% Manitoba + 15% federal = 27%).
+- **No US federal income tax, no US withholding.** Under Articles V and VII of the Canada–US treaty, business profits are taxable in the US only through a US permanent establishment. Services performed from Canada for US clients create none. Separately, services performed outside the US are foreign-source income and are not subject to the 30% withholding — clients receive a **Form W-8BEN-E** and withhold nothing. The treaty position is not automatic: it requires a **timely Form 1120-F protective return with Form 8833 attached**, filed annually.
+- **GST/HST works in our favour.** Advisory, consulting, and professional services supplied to non-resident, non-registered persons are **zero-rated** (Schedule VI, Part V, s. 23). We charge US clients 0%, and because zero-rated is not the same as exempt, we still claim input tax credits on Canadian expenses. Registration is required above $30,000 CAD in four consecutive quarters and is worth doing voluntarily before then to recover ITCs.
+
+Detail, and the questions for counsel and an accountant, are in `COMPLIANCE-POLICY.md`.
 
 **Hard ethical lines — non-negotiable, and also the correct business decision.** The FTC's Rule on Consumer Reviews and Testimonials (effective 21 October 2024) carries civil penalties up to roughly **$52,000 per violation** and reaches conduct a company "knew or should have known" about. Accordingly:
 

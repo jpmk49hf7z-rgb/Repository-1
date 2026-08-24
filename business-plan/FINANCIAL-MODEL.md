@@ -66,8 +66,13 @@ Less a 5% allowance for refunds, prorations, and negotiated discounts:
 |---|---|
 | Total operating cost, year 1 | ~$21,800 |
 | Stripe processing (2.9% + $0.30) | ~$11,800 |
+| Stripe FX conversion — **$0 if settling to a US-domiciled USD account**, ~$3,900 if not | $0 |
 | **Total cost** | **~$33,600** |
 | **Pre-tax profit, year 1** | **~$353,000** |
+| Corporate tax — Manitoba CCPC, 9% combined on active business income under $500k | ~$31,800 |
+| **After-tax profit retained in the corporation** | **~$321,000** |
+
+Revenue is invoiced in USD; the figures throughout this model are USD. Costs are also largely USD (APIs, sending tools, domains), so the currency exposure is limited to retained earnings. Settle Stripe into a US-domiciled USD account from the first invoice — otherwise automatic conversion takes roughly 1%, about $3,900 a year at base case.
 
 The business is cash-positive from month 2 and never requires capital beyond the initial $1,000. This is the defining structural advantage: **there is no month in which growth is constrained by money.** It is constrained by delivery capacity and by close rate.
 
@@ -116,6 +121,8 @@ Year-1 revenue, varying one assumption at a time from the base case:
 | Months 1–6 | 100% of profit to sending capacity, then API credits. Outreach volume is the growth constraint. |
 | Months 7–9 | Cap outbound spend at ~$600/mo. Route surplus into original research studies (inbound engine) and a refund reserve equal to one month of MRR. |
 | Months 10–12 | Hold a 3-month operating reserve. Distributions permitted above that. Consider a part-time human editor if quality metrics slip. |
+
+**A note on distributions.** The 9% Manitoba CCPC rate is a *deferral*, not forgiveness — personal tax applies when profits leave the company as salary or dividends. Retaining earnings inside the corporation through year 1 is therefore worth real money, and the reinvestment schedule above already does that. Salary-versus-dividend mix is an accountant question to settle before the first distribution.
 
 ---
 

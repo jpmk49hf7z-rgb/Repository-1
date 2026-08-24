@@ -63,6 +63,18 @@ Every quantitative claim in the plan, with the source it came from. Read the cav
 | FTC Rule on Consumer Reviews and Testimonials, effective 21 Oct 2024; ~$52,000/violation; "knew or should have known" standard | [FTC](https://www.ftc.gov/news-events/news/press-releases/2024/08/federal-trade-commission-announces-final-rule-banning-fake-reviews-testimonials) · [FTC Q&A](https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers) · [Wilson Sonsini](https://www.wsgr.com/en/insights/ftc-issues-final-rule-banning-fake-and-misleading-consumer-reviews-and-testimonials.html) |
 | Entity formation: Wyoming $100 filing / $60 annual; Delaware $110 / $300 franchise tax; Stripe Atlas $500 | [BusinessAnywhere](https://businessanywhere.io/stripe-atlas-vs-forming-your-own-llc/) · [SaveOffice](https://saveoffice.io/blog/stripe-atlas-vs-diy-llc-virtual-address) |
 
+## 6A. Canadian entity — cross-border sources
+
+| Claim | Source |
+|---|---|
+| CASL is consent-based; penalties to CAD $10M per violation for corporations; director liability; private right of action; implied consent via conspicuously published address, role-relevant | [McMillan LLP](https://mcmillan.ca/insights/key-differences-between-us-and-canadian-anti-spam-laws/) · [CRTC FAQ](https://crtc.gc.ca/eng/com500/faq500.htm) · [Smarte](https://www.smarte.pro/blog/casl-compliance) |
+| **Foreign-state exemption** — ECPR para. 3(f): CEMs accessed in listed states incl. the US are exempt from CASL consent where they comply with that state's spam law | [McInnes Cooper](https://www.mcinnescooper.com/publications/canadas-anti-spam-legislation-casl-10-faqs/) · [Dorsey & Whitney](https://www.dorsey.com/~/media/files/newsresources/publications/2014/08/Krasnow_Canadas_%20AntiSpam_Legislation_and_Impact_on_US_Businesses.pdf) |
+| Manitoba small business rate 0%; 9% combined with federal on first $500k active business income — lowest in Canada with Yukon | [Province of Manitoba](https://www.gov.mb.ca/finance/business/ctaxes.html) · [EY 2026 corporate rates](https://www.ey.com/content/dam/ey-unified-site/ey-com/en-ca/services/tax/tax-calculators/2026/ey-tax-rates-corporate-2026-01-15-v1.pdf) · [TaxTips](https://www.taxtips.ca/smallbusiness/corporatetax/corporate-tax-rates-2026.htm) |
+| No US tax without a permanent establishment (Treaty Art. V/VII); requires timely Form 1120-F protective return + Form 8833 | [Edelkoort Smethurst CPAs](https://es-cpas.com/real-estate/form-1120-f-filing-requirements-for-canadian-corporations-active-in-the-u-s/) · [AKIF CPA](https://akifcpa.com/u-s-tax-filings-for-canadian-corporations-as-foreign-corporations/) |
+| Services performed outside the US are foreign-source; no 30% withholding; W-8BEN-E is the documentation | [Baker Tilly](https://www.bakertilly.ca/insights/ustaxalert-withholding-tax-requirements-for-canadian-service-providers) |
+| Advisory/consulting/professional services to non-resident, non-registered persons are zero-rated (Sch. VI, Pt. V, s. 23); ITCs still claimable; $30k small-supplier threshold | [CRA — Exports: Services and IPP](https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/4-5-3/exports-services-intangible-personal-property.html) · [CRA Interpretation 222719](https://taxinterpretations.com/content/675500) |
+| Stripe Canada charges USD but auto-converts to settlement currency at ~1%; a US-domiciled account avoids it; a USD account at a Canadian bank does not | [Finofo](https://www.finofo.com/blog/how-canadian-businesses-can-avoid-stripes-auto-conversion-fee-on-usd-payments) · [Loop](https://www.bankonloop.com/en-ca/blog/avoid-stripe-conversion-fee-canada) |
+
 ## 7. Cost inputs for the unit economics
 
 | Input | Rate |

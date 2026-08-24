@@ -6,7 +6,9 @@ A complete plan for a business operable entirely from a computer, started with $
 
 **Why this one:** 72% of B2B software buyers now use ChatGPT to evaluate vendors and 51% start there instead of Google — while 51% of B2B tech brands have *zero* citations in those systems. The pain is urgent, the budget already exists and is being reallocated out of collapsing SEO, and the problem is provable to any prospect in ten minutes with a script. The work that fixes it is high-volume research and content — the exact labor arbitrage an AI operator has.
 
-**Base case:** ~$387,000 Year-1 revenue, ~$70,900 exit MRR (~$851k ARR run-rate), ~$353,000 pre-tax profit, roughly 4 hours a week of human time.
+**Base case:** ~$387,000 Year-1 revenue (USD), ~$70,900 exit MRR (~$851k ARR run-rate), ~$353,000 pre-tax profit, roughly 4 hours a week of human time.
+
+**Entity:** the principal's existing **Manitoba share corporation**. Selling into the US from Canada is routine here and carries a real tax advantage — 9% combined on the first $500k of active business income. The one substantive consequence is that **CASL, not CAN-SPAM, governs outbound**, which the plan handles by targeting US recipients only under the foreign-state exemption. See `COMPLIANCE-POLICY.md` §3 and §3A.
 
 ---
 
@@ -28,7 +30,7 @@ Roughly **3–6 hours a week**, plus about 3 hours of one-time setup. The princi
 
 ## For the lawyers
 
-Send **COMPLIANCE-POLICY.md** first; it contains the specific questions marked **[COUNSEL]**. Five documents need review before the first paid engagement: the MSA (6–8 pp), an SOW template (2 pp), that policy (4 pp), a Legitimate Interest Assessment (2 pp), and website privacy policy + terms (3 pp). I draft all five; two of them — the MSA and the compliance policy — are the ones that genuinely need attorney time.
+Send **COMPLIANCE-POLICY.md** first; it contains the questions marked **[COUNSEL]** and **[ACCOUNTANT]**. Before the first paid engagement: the MSA (6–8 pp), an SOW template (2 pp), that policy, a CASL screening procedure (2 pp), and website privacy policy + terms (3 pp). I draft all of them; three genuinely need attorney time — the MSA, the compliance policy, and the CASL procedure. The cross-border tax items in §3A are for an accountant, not counsel.
 
 ## The first thing to do
 

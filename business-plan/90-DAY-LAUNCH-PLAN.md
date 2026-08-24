@@ -7,9 +7,10 @@ Everything below is either **[C]** — Claude does it, or **[H]** — the human 
 ## Week 1 — Entity, identity, and the scanner
 
 **[H] (≈3 hrs, one time)**
-- Form the single-member LLC. Home state unless counsel advises otherwise; Wyoming as the default alternative ($100 filing, $60/yr).
-- Apply for the EIN (immediate online if the principal has an SSN).
-- Open a business bank account and a Stripe account.
+- Entity is already in place — the Manitoba corporation. No formation step.
+- Open a **US-domiciled USD account** (available to a Canadian-incorporated business on its existing registration documents) and connect it to Stripe as the settlement account. Doing this before the first invoice avoids ~1% on every dollar of revenue.
+- Open the Stripe account; set USD as the presentment currency.
+- Book the cross-border accountant: GST/HST registration timing, and the Form 1120-F / 8833 protective-return calendar.
 - Register the primary domain + 8 sending domains from the list I supply.
 - Create the mailbox accounts and Smartlead account.
 
@@ -18,8 +19,9 @@ Everything below is either **[C]** — Claude does it, or **[H]** — the human 
 - Build the marketing site: positioning, offer ladder, three-page structure, one live sample report. Deploy to a free tier.
 - Draft the MSA, SOW template, privacy policy, and terms for counsel.
 - Configure SPF, DKIM, and aligned DMARC on every sending domain.
+- Build the **CASL country screen** into the list pipeline: US-only for cold sequences, country verified from company records rather than inferred from the domain, with the exemption basis logged per recipient. This is a hard gate in code, not a checklist item.
 
-**Gate:** scanner produces a correct, reproducible report for three test companies.
+**Gate:** scanner produces a correct, reproducible report for three test companies; Stripe settles a $1 test charge into the USD account with no conversion.
 
 ---
 
@@ -47,7 +49,8 @@ Everything below is either **[C]** — Claude does it, or **[H]** — the human 
 - Draft the first 6 outreach sequences (one per persona × category).
 
 **[H] (≈2 hrs)**
-- Review the MSA with counsel. Sign off on outbound copy and the Legitimate Interest Assessment.
+- Review the MSA and the CASL screening procedure with counsel. Sign off on outbound copy.
+- Sign the W-8BEN-E; keep a PDF ready to send the moment a US client's accounts-payable team asks.
 - Approve the first sending batch.
 
 **Gate:** pipeline runs unattended for 7 days without intervention.
