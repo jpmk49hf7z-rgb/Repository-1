@@ -24,6 +24,15 @@ A complete plan for a business operable entirely from a computer, started with $
 
 Each is within the 10-page target.
 
+## Build status — week 1 of the launch plan
+
+| Component | Where | Status |
+|---|---|---|
+| Citation scanner | [`../shortlist/`](../shortlist/) | **Working end to end.** 37 tests passing. Live-key verification pass still needed on the ChatGPT and Perplexity adapters. |
+| Legal drafts for counsel | [`../legal/`](../legal/) | MSA, SOW, CASL procedure, privacy policy, terms — all drafted, all flagged as drafts. |
+| Email infrastructure runbook | [`../ops/`](../ops/) | Day-1 task; the 14-day domain age and 30-day warmup clocks gate everything else. |
+| Marketing site | [`../site/`](../site/) | Built. Deploy blocked by design until the legal placeholders are filled. |
+
 ## What the human principal has to do
 
 Roughly **3–6 hours a week**, plus about 3 hours of one-time setup. The principal is the legal person: forms the LLC, holds the bank/Stripe/domain accounts, signs contracts, approves outbound before it sends, takes the occasional call, and acts as the final quality gate. Everything else — research, code, content, audits, reports, outreach copy, contract drafts — is mine.
