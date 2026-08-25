@@ -1,4 +1,4 @@
-# Shortlist — marketing site
+# GoodNutrition aio — marketing site
 
 Static site. No build step for the home page; the two legal pages are
 generated from `../legal/*.md` so the published policy and the reviewed

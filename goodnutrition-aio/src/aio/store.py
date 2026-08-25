@@ -69,7 +69,7 @@ CREATE INDEX IF NOT EXISTS idx_scans_slug ON scans(slug, started_at);
 
 
 class Store:
-    def __init__(self, path: str | Path = "data/shortlist.db") -> None:
+    def __init__(self, path: str | Path = "data/aio.db") -> None:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self._connect() as conn:

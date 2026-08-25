@@ -1,4 +1,4 @@
-# Shortlist — Financial Model
+# GoodNutrition aio — Financial Model
 
 Companion to `BUSINESS-PLAN.md`. All figures are modelled, not observed. The purpose of this document is to make every assumption explicit enough to be attacked.
 

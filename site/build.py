@@ -29,7 +29,7 @@ TEMPLATE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title} — Shortlist</title>
+<title>{title} — GoodNutrition aio</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,7 @@ TEMPLATE = """<!doctype html>
 </head>
 <body>
 <header class="site"><div class="wrap"><div class="bar">
-  <a class="wordmark" href="/">Short<span>list</span></a>
+  <a class="wordmark" href="/">GoodNutrition <span>aio</span></a>
   <nav><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
 </div></div></header>
 <div class="wrap narrow doc">
@@ -48,7 +48,7 @@ TEMPLATE = """<!doctype html>
 </div>
 <footer class="site"><div class="wrap">
   <nav><a href="/">Home</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
-  <p><strong>Shortlist</strong> is operated by [COMPANY LEGAL NAME], a Manitoba corporation.</p>
+  <p><strong>GoodNutrition aio</strong> is operated by [COMPANY LEGAL NAME], a Manitoba corporation.</p>
 </div></footer>
 </body>
 </html>

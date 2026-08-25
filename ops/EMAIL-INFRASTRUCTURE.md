@@ -20,6 +20,21 @@ into spam. Everything below is a condition of delivery, not an optimisation.
 | `[brand].com` | Website, client email, invoices | **No cold outbound, ever** |
 | `try[brand].com`, `get[brand].com`, `[brand]hq.com` … | Cold outbound only | Yes |
 
+**Sending domains must also be topically neutral.** They carry no part of the
+trading name where that name signals a category unrelated to the recipient's.
+This matters concretely for **GoodNutrition aio**: nutrition and supplements are
+among the most aggressively filtered categories in email, and a domain or
+from-name carrying "GoodNutrition" reaching a VP of Marketing at a software
+company fails twice over — spam classifiers trained hard on that vocabulary,
+and a human who sees no topical relevance at all. Reply rate is the most
+sensitive variable in the whole financial model; a single point of it is worth
+roughly 22% of Year-1 revenue.
+
+Use `aio-reports.com`, `answervisibility.com`, `aio-scan.com` or similar. The
+brand appears everywhere a client sees it — the site, the report, the contract,
+the invoice, the reply-to once a conversation is live — and nowhere in a cold
+inbox.
+
 **Never send cold outbound from the primary domain.** A complaint spike burns
 the sending domain's reputation. If that domain is also where your invoices,
 contracts, and client correspondence live, you lose the business's ability to

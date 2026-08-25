@@ -1,4 +1,4 @@
-# Shortlist — Compliance & Ethics Policy
+# GoodNutrition aio — Compliance & Ethics Policy
 
 **Status: draft for review by counsel.** This document states the operating rules the business binds itself to. It is written to be reviewed as a standalone instrument and to be referenced by the MSA.
 

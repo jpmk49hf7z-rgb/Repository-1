@@ -44,7 +44,7 @@ class Brand:
 
     ``ambiguous`` marks brands whose name collides with ordinary English
     ("Notion", "Monday", "Front"). Those require stricter matching; see
-    :mod:`shortlist.mentions`.
+    :mod:`aio.mentions`.
     """
 
     name: str

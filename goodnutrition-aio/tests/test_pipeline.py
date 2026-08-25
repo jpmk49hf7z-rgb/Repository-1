@@ -11,15 +11,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from shortlist.config import load_category
-from shortlist.engines import build_engines
-from shortlist.mentions import analyse_answer
-from shortlist.models import Answer, Brand, Intent
-from shortlist.prompts import build_prompt_set
-from shortlist.report import render_report
-from shortlist.scanner import run_scan
-from shortlist.scoring import score_scan
-from shortlist.store import Store
+from aio.config import load_category
+from aio.engines import build_engines
+from aio.mentions import analyse_answer
+from aio.models import Answer, Brand, Intent
+from aio.prompts import build_prompt_set
+from aio.report import render_report
+from aio.scanner import run_scan
+from aio.scoring import score_scan
+from aio.store import Store
 
 CLIENT = Brand("Acme Field", "acmefield.io", is_client=True)
 RIVAL = Brand("Jobber", "getjobber.com")
@@ -65,7 +65,7 @@ class TestScoring(unittest.TestCase):
         self.assertAlmostEqual(total, 1.0)
 
     def test_discovery_intent_outweighs_problem_intent(self):
-        """Shortlist-forming questions must count for more."""
+        """GoodNutrition aio-forming questions must count for more."""
         disc = self._score([make("Acme Field.", intent=Intent.DISCOVERY)])
         prob = self._score([make("Acme Field.", intent=Intent.PROBLEM)])
         self.assertGreater(
@@ -159,14 +159,14 @@ class TestEndToEnd(unittest.TestCase):
 
 class TestRetryPolicy(unittest.TestCase):
     def test_rate_limits_retry_but_bad_requests_do_not(self):
-        from shortlist.engines.base import Engine
+        from aio.engines.base import Engine
         self.assertTrue(Engine._retryable(Exception("RateLimitError: 429")))
         self.assertTrue(Engine._retryable(TimeoutError("timeout")))
         self.assertFalse(Engine._retryable(Exception("BadRequestError: bad model")))
 
     def test_adapter_failure_becomes_failed_answer_not_exception(self):
-        from shortlist.engines.base import Engine
-        from shortlist.models import Prompt
+        from aio.engines.base import Engine
+        from aio.models import Prompt
 
         class Broken(Engine):
             name = "broken"

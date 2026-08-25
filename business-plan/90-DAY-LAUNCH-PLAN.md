@@ -1,4 +1,4 @@
-# Shortlist — 90-Day Launch Plan
+# GoodNutrition aio — 90-Day Launch Plan
 
 Everything below is either **[C]** — Claude does it, or **[H]** — the human principal must do it because it needs a legal person, a payment method, or a signature. The **[H]** column is the real schedule constraint; it totals roughly 4 hours a week.
 

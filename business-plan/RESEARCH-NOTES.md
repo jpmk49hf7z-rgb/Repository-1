@@ -1,4 +1,4 @@
-# Shortlist — Research Notes & Sources
+# GoodNutrition aio — Research Notes & Sources
 
 Every quantitative claim in the plan, with the source it came from. Read the caveat in §7 before treating any of these as precise.
 

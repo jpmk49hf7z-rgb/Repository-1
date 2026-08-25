@@ -1,13 +1,13 @@
-# Shortlist — Business Plan
+# GoodNutrition aio — Business Plan
 
 **An AI answer-visibility firm for B2B SaaS companies.**
 
-Working name: **Shortlist**. Alternates if the domain is taken: *Cited*, *Answer Share*, *Vendor Signal*.
+Trading name: **GoodNutrition aio**. Client-facing everywhere — site, contracts, reports, invoices. **Cold-outbound sending domains stay topically neutral** and never carry the brand; see `../ops/EMAIL-INFRASTRUCTURE.md` §1 for why.
 Operated end-to-end from a computer. Claude does the work; the human principal is the legal person, signatory, and account holder.
 
 | | |
 |---|---|
-| **Version** | 1.0 — 21 August 2026 |
+| **Version** | 1.1 — 25 August 2026 |
 | **Starting capital** | $1,000, then reinvested profit only |
 | **Objective** | Maximize recognized revenue over 12 months |
 | **Base-case target** | ~$387,000 Year-1 revenue; ~$70,900 exit MRR (~$851k ARR run-rate) |

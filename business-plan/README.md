@@ -1,4 +1,4 @@
-# Shortlist — a business plan
+# GoodNutrition aio — a business plan
 
 A complete plan for a business operable entirely from a computer, started with $1,000, aimed at maximizing revenue over 12 months.
 
@@ -28,7 +28,7 @@ Each is within the 10-page target.
 
 | Component | Where | Status |
 |---|---|---|
-| Citation scanner | [`../shortlist/`](../shortlist/) | **Working end to end.** 37 tests passing. Live-key verification pass still needed on the ChatGPT and Perplexity adapters. |
+| Citation scanner | [`../goodnutrition-aio/`](../goodnutrition-aio/) | **Working end to end.** 37 tests passing. Live-key verification pass still needed on the ChatGPT and Perplexity adapters. |
 | Legal drafts for counsel | [`../legal/`](../legal/) | MSA, SOW, CASL procedure, privacy policy, terms — all drafted, all flagged as drafts. |
 | Email infrastructure runbook | [`../ops/`](../ops/) | Day-1 task; the 14-day domain age and 30-day warmup clocks gate everything else. |
 | Marketing site | [`../site/`](../site/) | Built. Deploy blocked by design until the legal placeholders are filled. |
