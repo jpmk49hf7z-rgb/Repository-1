@@ -72,6 +72,8 @@ Less a 5% allowance for refunds, prorations, and negotiated discounts:
 | Corporate tax — Manitoba CCPC, 9% combined on active business income under $500k | ~$31,800 |
 | **After-tax profit retained in the corporation** | **~$321,000** |
 
+**Currency.** Revenue is invoiced in USD; the figures throughout this model are USD. At USD/CAD ~1.40 (August 2026), the base case's $387,000 is roughly **CAD $542,000**. Bank forecasts point to mild CAD appreciation toward 1.38 by Q4 2026, which is a modest headwind on translation and not material to any decision here. A trade-war-weakened loonie is, on balance, a tailwind for a Canadian company earning USD — and it raises the value of holding revenue in the US-domiciled USD account rather than converting on a schedule, so conversion timing stays a choice rather than an automatic haircut.
+
 Revenue is invoiced in USD; the figures throughout this model are USD. Costs are also largely USD (APIs, sending tools, domains), so the currency exposure is limited to retained earnings. Settle Stripe into a US-domiciled USD account from the first invoice — otherwise automatic conversion takes roughly 1%, about $3,900 a year at base case.
 
 The business is cash-positive from month 2 and never requires capital beyond the initial $1,000. This is the defining structural advantage: **there is no month in which growth is constrained by money.** It is constrained by delivery capacity and by close rate.

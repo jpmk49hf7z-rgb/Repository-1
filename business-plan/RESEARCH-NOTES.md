@@ -75,6 +75,18 @@ Every quantitative claim in the plan, with the source it came from. Read the cav
 | Advisory/consulting/professional services to non-resident, non-registered persons are zero-rated (Sch. VI, Pt. V, s. 23); ITCs still claimable; $30k small-supplier threshold | [CRA — Exports: Services and IPP](https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/4-5-3/exports-services-intangible-personal-property.html) · [CRA Interpretation 222719](https://taxinterpretations.com/content/675500) |
 | Stripe Canada charges USD but auto-converts to settlement currency at ~1%; a US-domiciled account avoids it; a USD account at a Canadian bank does not | [Finofo](https://www.finofo.com/blog/how-canadian-businesses-can-avoid-stripes-auto-conversion-fee-on-usd-payments) · [Loop](https://www.bankonloop.com/en-ca/blog/avoid-stripe-conversion-fee-canada) |
 
+## 6B. Trade war exposure — sources (August 2026)
+
+| Claim | Source |
+|---|---|
+| 50% US tariffs on ~$20bn of Canadian goods effective 22 Aug 2026, applying even to CUSMA-compliant goods, no expiry | [Al Jazeera](https://www.aljazeera.com/news/2026/8/22/us-imposes-50-tariffs-on-20bn-worth-of-canadian-goods-after-talks-fail) · [Blakes timeline](https://www.blakes.com/insights/us-canada-tariffs-timeline-of-key-dates-and-documents/) |
+| Canada retaliating dollar-for-dollar from 8 Sep 2026, targeting steel, dairy, agricultural equipment, appliances, paper, electronics — **all goods** | [CNBC](https://www.cnbc.com/2026/08/22/us-canada-trade-talks-collapse-ushering-in-wave-of-new-tariffs.html) · [Al Jazeera](https://www.aljazeera.com/news/2026/8/23/canada-to-hit-us-with-retaliatory-tariffs-as-trade-war-escalates) |
+| **Tariffs do not apply to cross-border services or intangibles** — the load-bearing fact for this business | [Avalara](https://www.avalara.com/blog/en/north-america/2025/03/canada-us-tariffs.html) · [CRS, US–Canada Trade Relations](https://www.congress.gov/crs_external_products/IF/PDF/IF12595/IF12595.31.pdf) |
+| USD/CAD ~1.40–1.42 Aug 2026; five-bank consensus 1.38 by Q4 | [MTFX](https://www.mtfxgroup.com/fx-forecast/) · [LiteFinance](https://www.litefinance.org/blog/analysts-opinions/usd-cad-price-prediction/loonie-tumbles-as-us-and-canada-head-for-all-out-trade-war-forecast-as-of-25082026/) |
+| Canada's Digital Services Tax rescinded 2025, repealed retroactively via Bill C-15, CRA refunding ~$647M; Section 899 pressure was the cause | [VATupdate](https://www.vatupdate.com/2026/07/29/digital-services-tax-dst-repealed-and-what-still-applies/) · [Canada.ca](https://www.canada.ca/en/services/taxes/excise-taxes-duties-and-levies/digital-services-tax.html) · [ACTIA](https://actia.ca/canada-revenue-agency-647-million-digital-services-tax/) |
+| "Digital trade alignment" in the negotiation package — likely *more* cross-border data freedom, not less | [Michael Geist](https://www.michaelgeist.ca/2026/08/digital-trade-alignment-what-may-be-in-play-in-the-canada-u-s-trade-deal/) |
+| B2B relationships largely holding; only ~12% of firms actively seeking alternative suppliers; Canadian Chamber reports no en-masse cold shoulder | [CBC](https://www.cbc.ca/news/world/trump-tariffs-impact-on-american-business-owners-9.7310238) |
+
 ## 7. Cost inputs for the unit economics
 
 | Input | Rate |
