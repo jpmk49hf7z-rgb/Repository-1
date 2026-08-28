@@ -23,7 +23,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
     HRFlowable, KeepTogether, ListFlowable, ListItem, PageBreak, Paragraph,
-    SimpleDocTemplate, Spacer, Table, TableStyle,
+    Preformatted, SimpleDocTemplate, Spacer, Table, TableStyle,
 )
 
 HERE = Path(__file__).parent
@@ -60,6 +60,16 @@ LEGAL_DOCS = [
     ("SOW-template.md", "Statement of Work"),
     ("privacy-policy.md", "Privacy Policy"),
     ("website-terms.md", "Website Terms of Use"),
+]
+
+
+#: Operational runbooks, rendered into ../ops/pdf/. These are working
+#: documents followed at a desk while filling in someone else's web forms, so
+#: they are generated individually and never combined into a pack.
+OPS = HERE.parent / "ops"
+OPS_DOCS = [
+    ("EMAIL-SETUP-SHEET.md", "Email Setup Sheet"),
+    ("EMAIL-INFRASTRUCTURE.md", "Email Infrastructure Runbook"),
 ]
 
 
@@ -149,6 +159,39 @@ def build_table(rows: list[list[str]], width: float) -> Table:
     return t
 
 
+def code_block(body: list[str], width: float):
+    """Render a fenced block verbatim, shrinking the font rather than wrapping.
+
+    These blocks exist to be copied into someone else's web form, so a value
+    broken across two lines is a defect rather than a cosmetic flaw. Courier
+    advances at 0.6 em, which makes the fitting calculation exact: shrink until
+    the longest line fits, and only fall back to wrapping past the legibility
+    floor.
+    """
+    text = "\n".join(body) or " "
+    longest = max((len(line) for line in body), default=1)
+    available = width - 16          # cell padding, both sides
+
+    size = 8.5
+    while size > 6.0 and longest * size * 0.6 > available:
+        size -= 0.25
+
+    style = ParagraphStyle(
+        "code", fontName="Courier", fontSize=size, leading=size * 1.4,
+        textColor=INK, alignment=TA_LEFT,
+    )
+    table = Table([[Preformatted(text, style)]], colWidths=[width])
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), SURFACE),
+        ("BOX", (0, 0), (-1, -1), 0.5, RULE),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 7),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+    ]))
+    return KeepTogether([Spacer(1, 4), table, Spacer(1, 8)])
+
+
 def parse(md: str, width: float) -> list:
     """Convert a Markdown document into a Platypus flowable list."""
     flow: list = []
@@ -160,6 +203,18 @@ def parse(md: str, width: float) -> list:
 
         if not stripped:
             i += 1
+            continue
+
+        # Fenced code block — must be matched before anything else, so its
+        # contents are never interpreted as Markdown.
+        if stripped.startswith("```"):
+            i += 1
+            buf: list[str] = []
+            while i < len(lines) and not lines[i].strip().startswith("```"):
+                buf.append(lines[i].rstrip())
+                i += 1
+            i += 1                                  # consume closing fence
+            flow.append(code_block(buf, width))
             continue
 
         # Table — a header row followed by a |---| separator.
@@ -305,6 +360,20 @@ def main() -> int:
     render(legal_combined, legal_pack, "Counsel Pack")
     print(f"  {'(all legal drafts)':26} -> legal/pdf/{legal_pack.name}")
 
+    # Operational runbooks — individual PDFs only, no combined pack.
+    ops_out = OPS / "pdf"
+    ops_out.mkdir(exist_ok=True)
+    print()
+    for src, title in OPS_DOCS:
+        path = OPS / src
+        if not path.exists():
+            print(f"  missing: ops/{src}", file=sys.stderr)
+            continue
+        dest = ops_out / f"{path.stem}.pdf"
+        render(parse(path.read_text(), width), dest, title)
+        made.append(dest.name)
+        print(f"  ops/{src:22} -> ops/pdf/{dest.name}")
+
     # Remove combined packs left over from a previous trading name, so a
     # lawyer is never sent a document branded with a name we no longer use.
     #
@@ -320,7 +389,7 @@ def main() -> int:
                 old.unlink()
                 print(f"  removed stale: {old.parent.name}/{old.name}")
 
-    print(f"\n{len(made) + 2} PDFs written.")
+    print(f"\n{len(made) + 2} PDFs written.")  # +2 combined packs
     return 0
 
 
