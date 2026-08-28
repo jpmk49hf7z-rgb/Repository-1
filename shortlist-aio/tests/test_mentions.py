@@ -9,8 +9,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from aio.models import Answer, Brand, Intent
-from aio.mentions import analyse_answer, find_brand, normalise_host
+from shortlist.models import Answer, Brand, Intent
+from shortlist.mentions import analyse_answer, find_brand, normalise_host
 
 
 def answer(text: str, sources: list[str] | None = None) -> Answer:

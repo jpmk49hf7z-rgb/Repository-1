@@ -1,4 +1,4 @@
-# GoodNutrition aio — 90-Day Launch Plan
+# Shortlist AIO — 90-Day Launch Plan
 
 Everything below is either **[C]** — Claude does it, or **[H]** — the human principal must do it because it needs a legal person, a payment method, or a signature. The **[H]** column is the real schedule constraint; it totals roughly 4 hours a week.
 
@@ -9,7 +9,8 @@ Everything below is either **[C]** — Claude does it, or **[H]** — the human 
 **[H] (≈3 hrs, one time)**
 - Entity is already in place — the Manitoba corporation. No formation step.
 - Open a **US-domiciled USD account** (available to a Canadian-incorporated business on its existing registration documents) and connect it to Stripe as the settlement account. Doing this before the first invoice avoids ~1% on every dollar of revenue.
-- Open the Stripe account; set USD as the presentment currency.
+- Open the Stripe account in the corporate name; set USD as the presentment currency.
+- **Set the Stripe statement descriptor to `SHORTLISTAIO`, not the corporate name.** A client who sees `GLASS HOUSE GARDENS` on a card statement for AI-visibility services will open a support ticket or, worse, file a chargeback. Invoices still carry the legal name.
 - Book the cross-border accountant: GST/HST registration timing, and the Form 1120-F / 8833 protective-return calendar.
 - Register the primary domain + 8 sending domains from the list I supply.
 - Create the mailbox accounts and Smartlead account.

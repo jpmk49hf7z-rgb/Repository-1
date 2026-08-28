@@ -4,8 +4,7 @@
 
 **Effective:** `[DATE]`
 
-These terms govern use of `[DOMAIN]` (the "Site"), operated by
-`[COMPANY LEGAL NAME]`, a Manitoba, Canada corporation. By using the Site you
+These terms govern use of `shortlistaio.com` (the "Site"), operated by **Glass House Gardens Inc.**, a Manitoba, Canada corporation carrying on business as **Shortlist AIO**. By using the Site you
 accept them. **Services purchased from us are governed by a separate Master
 Services Agreement, not by these terms.**
 
@@ -92,4 +91,4 @@ protection right you have in your place of residence.
 
 ## 10. Contact
 
-`[hello@DOMAIN]` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`
+`hello@shortlistaio.com` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`

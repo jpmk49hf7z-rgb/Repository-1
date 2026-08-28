@@ -1,8 +1,8 @@
-# GoodNutrition aio — Business Plan
+# Shortlist AIO — Business Plan
 
 **An AI answer-visibility firm for B2B SaaS companies.**
 
-Trading name: **GoodNutrition aio**. Client-facing everywhere — site, contracts, reports, invoices. **Cold-outbound sending domains stay topically neutral** and never carry the brand; see `../ops/EMAIL-INFRASTRUCTURE.md` §1 for why.
+Trading name: **Shortlist AIO**. Client-facing everywhere — site, contracts, reports, invoices. **Cold-outbound sending domains stay topically neutral** and never carry the brand; see `../ops/EMAIL-INFRASTRUCTURE.md` §1 for why.
 Operated end-to-end from a computer. Claude does the work; the human principal is the legal person, signatory, and account holder.
 
 | | |

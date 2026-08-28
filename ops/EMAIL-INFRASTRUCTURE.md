@@ -15,25 +15,73 @@ into spam. Everything below is a condition of delivery, not an optimisation.
 
 ## 1. Domain plan
 
-| Domain | Use | Sends mail? |
-|---|---|---|
-| `[brand].com` | Website, client email, invoices | **No cold outbound, ever** |
-| `try[brand].com`, `get[brand].com`, `[brand]hq.com` … | Cold outbound only | Yes |
+Nine domains, all registered to **Glass House Gardens Inc.**, all bought on the
+same day so the 14-day aging clock runs in parallel.
 
-**Sending domains must also be topically neutral.** They carry no part of the
-trading name where that name signals a category unrelated to the recipient's.
-This matters concretely for **GoodNutrition aio**: nutrition and supplements are
-among the most aggressively filtered categories in email, and a domain or
-from-name carrying "GoodNutrition" reaching a VP of Marketing at a software
-company fails twice over — spam classifiers trained hard on that vocabulary,
-and a human who sees no topical relevance at all. Reply rate is the most
-sensitive variable in the whole financial model; a single point of it is worth
-roughly 22% of Year-1 revenue.
+### Brand domain — never sends cold mail
 
-Use `aio-reports.com`, `answervisibility.com`, `aio-scan.com` or similar. The
-brand appears everywhere a client sees it — the site, the report, the contract,
-the invoice, the reply-to once a conversation is live — and nowhere in a cold
-inbox.
+| Domain | Use |
+|---|---|
+| `shortlistaio.com` | Website, client email, invoices, contracts |
+
+Subdomains of it are fine for things that do not send outbound:
+`app.shortlistaio.com` (client dashboard), `reports.shortlistaio.com` (hosted
+reports), `research.shortlistaio.com` (the published Citation Index).
+
+### Sending domains — eight separate registrations
+
+| Domain | Mailboxes |
+|---|---|
+| `getshortlistaio.com` | 2 |
+| `tryshortlistaio.com` | 2 |
+| `useshortlistaio.com` | 2 |
+| `goshortlistaio.com` | 2 |
+| `joinshortlistaio.com` | 2 |
+| `withshortlistaio.com` | 2 |
+| `shortlistaiohq.com` | 2 |
+| `shortlistaioteam.com` | 2 |
+
+**Separate registrations, not subdomains.** Reputation and DMARC alignment
+attach to the registered domain. `getshortlistaio.com` and `shortlistaio.com`
+are unrelated senders to Gmail and Outlook — the shared letters mean nothing to
+a filter — so a complaint spike on one cannot reach the other. A subdomain like
+`mail.shortlistaio.com` rolls up to the same organisational domain and would
+carry the damage straight to the brand.
+
+The shared name is deliberate. Filters ignore it; humans do not. Mail from
+`getshortlistaio.com` landing beside a site at `shortlistaio.com` reads as
+coherent, where mail from `outreach-pro-42.com` reads as exactly what it is.
+
+### Sizing
+
+| Step | Figure |
+|---|---|
+| Target volume | 3,000 / month |
+| ÷ 22 working days | ~150 / day |
+| ÷ 15 per mailbox per day (safe sustained rate) | 10 mailboxes minimum |
+| ÷ 2 mailboxes per domain (more concentrates risk) | 5 domains minimum |
+| + headroom to rest a bad domain | **8 domains, 16 mailboxes** |
+
+16 × 15 = 240/day capacity against 150/day needed. That headroom is the point:
+when a domain's placement drops you rest it for two weeks rather than pushing
+its volume onto the others and spreading the damage.
+
+**Avoid** `mail`, `inbox`, `outreach`, `crm`, or digits in a sending domain —
+those read as disposable infrastructure to filters and humans alike.
+
+### A note on topical neutrality
+
+A sending domain must not carry a trading name that signals a category
+unrelated to the recipient's. **Shortlist AIO satisfies this by construction** —
+"shortlist" is the vocabulary of B2B software buying and describes precisely
+what the product does, so the brand can appear in the sending domains.
+
+Keep the rule in mind if the trading name ever changes. A name drawn from a
+heavily filtered category — nutrition, supplements, finance, pharma — would
+have to be kept out of sending domains entirely, because it fails twice over:
+spam classifiers trained hard on that vocabulary, and a human who sees no
+topical relevance. Reply rate is the most sensitive variable in the financial
+model; one point of it is worth roughly 22% of Year-1 revenue.
 
 **Never send cold outbound from the primary domain.** A complaint spike burns
 the sending domain's reputation. If that domain is also where your invoices,
@@ -155,7 +203,7 @@ that lands in Promotions or Junk is delivered and worthless.
 | Item | Cost |
 |---|---|
 | 8 sending domains | ~$96 / yr |
-| Primary brand domain | ~$15 / yr |
+| Brand domain `shortlistaio.com` | ~$15 / yr |
 | 16 mailboxes | ~$40 / mo |
 | Sequencer (unlimited mailboxes) | $39 / mo |
 | **Running total** | **~$79 / mo + $111 / yr** |

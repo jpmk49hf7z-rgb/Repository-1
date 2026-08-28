@@ -5,7 +5,7 @@
 > need a decision or confirmation. Sections marked **⚑** are the ones most
 > likely to matter in a dispute; please read those first.
 
-**Between:** `[COMPANY LEGAL NAME]`, a Manitoba corporation ("**Provider**")
+**Between:** **Glass House Gardens Inc.**, a Manitoba corporation carrying on business as *Shortlist AIO* ("**Provider**")
 **And:** the client named in the Statement of Work ("**Client**")
 **Effective:** the date of the first executed Statement of Work.
 
@@ -19,6 +19,30 @@
 **"Answer Engines"** — third-party AI answer and search systems (for example ChatGPT, Perplexity, Google AI Overviews, Claude).
 **"Measurement Data"** — data Provider generates by querying Answer Engines, including prompts, responses, sources, and derived scores.
 **"Confidential Information"** — non-public information disclosed by one party to the other and marked, or reasonably understood, as confidential.
+
+## 1A. ⚑ Trading name
+
+1A.1 Provider's legal name is **Glass House Gardens Inc.** Provider markets and
+delivers the Services under the trading name **Shortlist AIO**, and operates the
+website at `shortlistaio.com`.
+
+1A.2 **The contracting party is Glass House Gardens Inc.** Invoices, payment
+instructions, and notices are issued in that name. Client should expect the
+corporate name, not the trading name, on financial records.
+
+1A.3 The trading name confers no separate legal personality, and nothing in any
+marketing material creates an obligation of any entity other than Glass House
+Gardens Inc.
+
+> **[COUNSEL]** Manitoba generally requires a business name registration to
+> carry on business under a name other than the corporation's registered name.
+> Please confirm whether registering *Shortlist AIO* is required **before** the
+> first paid engagement rather than later — the trading name will appear on the
+> website, in outbound email, on invoices, and in this agreement from day one,
+> which we assume triggers the requirement sooner than a purely internal brand
+> would. Please also confirm the correct execution form: whether contracts
+> should read "Glass House Gardens Inc." alone, or "Glass House Gardens Inc.
+> o/a Shortlist AIO", and whether the latter is available only post-registration.
 
 ## 2. Services
 
@@ -179,5 +203,5 @@ During the term and for `[12]` months after, neither party will knowingly solici
 
 ---
 
-**Provider:** `[COMPANY LEGAL NAME]` — signature, name, title, date
+**Provider:** `Glass House Gardens Inc.` — signature, name, title, date
 **Client:** `[CLIENT LEGAL NAME]` — signature, name, title, date

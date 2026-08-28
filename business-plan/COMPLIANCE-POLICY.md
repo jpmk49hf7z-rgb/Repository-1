@@ -1,4 +1,4 @@
-# GoodNutrition aio — Compliance & Ethics Policy
+# Shortlist AIO — Compliance & Ethics Policy
 
 **Status: draft for review by counsel.** This document states the operating rules the business binds itself to. It is written to be reviewed as a standalone instrument and to be referenced by the MSA.
 
@@ -8,9 +8,10 @@ Nothing here is legal advice. Items marked **[COUNSEL]** are specific questions 
 
 ## 1. Entity and contracting
 
-**A Manitoba share corporation**, already incorporated and held by the principal, who is sole director, sole signatory, and account holder for all financial and platform accounts. All work is performed by the principal using AI systems under the principal's direction and review. The company has no US presence: no US office, no US employees, no dependent agent in the US, and no US-situated equipment.
+**Glass House Gardens Inc.**, a Manitoba share corporation already incorporated and held by the principal, carrying on business as **Shortlist AIO**. The corporation owns the domains, the bank and Stripe accounts, and every contract. The trading name has no separate legal personality, who is sole director, sole signatory, and account holder for all financial and platform accounts. All work is performed by the principal using AI systems under the principal's direction and review. The company has no US presence: no US office, no US employees, no dependent agent in the US, and no US-situated equipment.
 
 **[COUNSEL]** Confirm professional liability (E&O) coverage timing — before the first paid engagement, or at a stated client count.
+**[COUNSEL]** Confirm whether a Manitoba business name registration for *Shortlist AIO* is required before the first paid engagement, given the trading name appears on the website, in outbound email, on invoices, and in the MSA from day one.
 **[ACCOUNTANT]** Confirm whether Manitoba Retail Sales Tax applies to any part of the service offering, including for the small number of Canadian clients we may take.
 
 ### Contract terms to be reflected in the MSA

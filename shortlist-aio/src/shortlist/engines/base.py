@@ -2,7 +2,7 @@
 
 Every answer engine we measure — ChatGPT, Claude, Perplexity, Google AI
 Overviews — is reached through a different API with a different response
-shape. Adapters normalise them to a single :class:`~aio.models.Answer`.
+shape. Adapters normalise them to a single :class:`~shortlist.models.Answer`.
 
 Two rules hold for every adapter:
 

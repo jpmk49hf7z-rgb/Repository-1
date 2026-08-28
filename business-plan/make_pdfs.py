@@ -29,7 +29,7 @@ from reportlab.platypus import (
 HERE = Path(__file__).parent
 OUT = HERE / "pdf"
 
-BRAND = "GoodNutrition aio"
+BRAND = "Shortlist AIO"
 
 INK = colors.HexColor("#15181E")
 MID = colors.HexColor("#3E4552")
@@ -305,10 +305,20 @@ def main() -> int:
     render(legal_combined, legal_pack, "Counsel Pack")
     print(f"  {'(all legal drafts)':26} -> legal/pdf/{legal_pack.name}")
 
-    # Remove PDFs from a previous trading name so nothing stale is sent out.
-    for old in OUT.glob("Shortlist-*.pdf"):
-        old.unlink()
-        print(f"  removed stale: {old.name}")
+    # Remove combined packs left over from a previous trading name, so a
+    # lawyer is never sent a document branded with a name we no longer use.
+    #
+    # Matched by suffix and filtered against the *current* expected filename
+    # rather than by hardcoding a brand: hardcoding inverts the moment the
+    # brand becomes the one being matched, deleting the fresh file and keeping
+    # the stale one.
+    keep = {pack.name, legal_pack.name}
+    for directory, suffix in ((OUT, "-Complete-Business-Plan.pdf"),
+                              (legal_out, "-Counsel-Pack.pdf")):
+        for old in directory.glob(f"*{suffix}"):
+            if old.name not in keep:
+                old.unlink()
+                print(f"  removed stale: {old.parent.name}/{old.name}")
 
     print(f"\n{len(made) + 2} PDFs written.")
     return 0

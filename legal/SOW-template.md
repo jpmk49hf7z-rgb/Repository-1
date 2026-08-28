@@ -4,7 +4,7 @@
 > Master Services Agreement. Fill the bracketed fields per engagement.
 
 **SOW number:** `[001]` **Date:** `[DATE]`
-**Provider:** `[COMPANY LEGAL NAME]` **Client:** `[CLIENT LEGAL NAME]`
+**Provider:** `Glass House Gardens Inc.` **Client:** `[CLIENT LEGAL NAME]`
 **Client contact:** `[NAME, TITLE, EMAIL]` **Provider contact:** `[NAME, EMAIL]`
 
 ---

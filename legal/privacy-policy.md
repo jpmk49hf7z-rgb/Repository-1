@@ -5,13 +5,13 @@
 
 **Effective:** `[DATE]` **Last updated:** `[DATE]`
 
-`[COMPANY LEGAL NAME]` ("we", "us") is a Manitoba, Canada corporation. This
+**Glass House Gardens Inc.** ("we", "us") is a Manitoba, Canada corporation, carrying on business as **Shortlist AIO**. This
 policy explains what personal information we handle, why, and what you can do
 about it. We are subject to Canada's **PIPEDA**; where we handle information
 about people in other jurisdictions, additional rights may apply and are
 described below.
 
-**Contact:** `[privacy@DOMAIN]` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`
+**Contact:** `privacy@shortlistaio.com` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`
 
 ---
 
@@ -98,7 +98,7 @@ transfers we rely on `[Standard Contractual Clauses / adequacy]`.
 You may ask us to **access**, **correct**, **delete**, or **port** your
 personal information, to **withdraw consent**, or to **object to** or
 **restrict** our handling of it. To stop marketing, use the unsubscribe link
-in any email or write to `[privacy@DOMAIN]` — we act on this within **10
+in any email or write to `privacy@shortlistaio.com` — we act on this within **10
 business days** and normally at once.
 
 If you ask us to delete your information, we will keep the minimum record

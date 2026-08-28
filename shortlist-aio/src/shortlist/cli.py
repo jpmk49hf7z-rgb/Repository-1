@@ -1,7 +1,7 @@
 """Command line entry point.
 
-    python -m aio scan config/categories/field-service-hvac.yaml
-    python -m aio prompts config/categories/field-service-hvac.yaml
+    python -m shortlist scan config/categories/field-service-hvac.yaml
+    python -m shortlist prompts config/categories/field-service-hvac.yaml
 """
 from __future__ import annotations
 
@@ -102,7 +102,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="aio", description=__doc__)
+    parser = argparse.ArgumentParser(prog="shortlist", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_prompts = sub.add_parser("prompts", help="preview the generated prompt set")
@@ -117,7 +117,7 @@ def main(argv: list[str] | None = None) -> int:
                              "use 'mock' for an offline dry run")
     p_scan.add_argument("--limit", type=int, default=40)
     p_scan.add_argument("--concurrency", type=int, default=4)
-    p_scan.add_argument("--db", default="data/aio.db")
+    p_scan.add_argument("--db", default="data/shortlist.db")
     p_scan.add_argument("--out", default="reports")
     p_scan.add_argument("--settings", default="config/settings.yaml")
     p_scan.add_argument("--quiet", action="store_true")

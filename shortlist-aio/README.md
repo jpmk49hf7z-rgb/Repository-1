@@ -1,4 +1,4 @@
-# GoodNutrition aio — citation scanner
+# Shortlist AIO — citation scanner
 
 Measures how often answer engines name a company when a buyer asks for the
 best tool in its category, and how that compares with its competitors.
@@ -17,11 +17,11 @@ cp .env.example .env            # add at least one API key
 cp config/settings.example.yaml config/settings.yaml
 
 # Offline dry run — no keys, no spend, deterministic output
-PYTHONPATH=src python -m aio scan config/categories/field-service-hvac.yaml \
+PYTHONPATH=src python -m shortlist scan config/categories/field-service-hvac.yaml \
   --engines mock
 
 # Live scan
-PYTHONPATH=src python -m aio scan config/categories/field-service-hvac.yaml \
+PYTHONPATH=src python -m shortlist scan config/categories/field-service-hvac.yaml \
   --engines claude,chatgpt,perplexity
 ```
 
@@ -31,7 +31,7 @@ scan to SQLite in `data/`.
 Preview the question set without spending anything:
 
 ```bash
-PYTHONPATH=src python -m aio prompts config/categories/field-service-hvac.yaml
+PYTHONPATH=src python -m shortlist prompts config/categories/field-service-hvac.yaml
 ```
 
 ## Adding a prospect
@@ -74,7 +74,7 @@ wrong in the alarming direction during a sales call.
 
 **Detection requires corroboration for ambiguous names.** Substring matching
 reports "Ramp" inside "Rampart" and "monday" in "on monday we ship". Both
-inflate a prospect's apparent visibility. See `src/aio/mentions.py` and
+inflate a prospect's apparent visibility. See `src/shortlist/mentions.py` and
 its tests.
 
 **Model ids and token rates are configuration, not constants.** Providers
