@@ -34,15 +34,15 @@ corporate name, not the trading name, on financial records.
 marketing material creates an obligation of any entity other than Glass House
 Gardens Inc.
 
-> **[COUNSEL]** Manitoba generally requires a business name registration to
-> carry on business under a name other than the corporation's registered name.
-> Please confirm whether registering *Shortlist AIO* is required **before** the
-> first paid engagement rather than later — the trading name will appear on the
-> website, in outbound email, on invoices, and in this agreement from day one,
-> which we assume triggers the requirement sooner than a purely internal brand
-> would. Please also confirm the correct execution form: whether contracts
-> should read "Glass House Gardens Inc." alone, or "Glass House Gardens Inc.
-> o/a Shortlist AIO", and whether the latter is available only post-registration.
+> **[COUNSEL]** Manitoba's *Business Names Registration Act* requires a
+> business name registration to carry on business under a name other than the
+> corporation's registered name. Provider is registering **Shortlist AIO** as a
+> business name of Glass House Gardens Inc. before the first paid engagement
+> (Companies Office: $45 name reservation + $60 registration). Please confirm
+> (a) that this is the correct instrument rather than an articles-of-amendment
+> name change, and (b) the execution form once registered — we have drafted
+> this agreement as "Glass House Gardens Inc. carrying on business as Shortlist
+> AIO" and want confirmation that wording is correct for Manitoba.
 
 ## 2. Services
 

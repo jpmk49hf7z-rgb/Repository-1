@@ -7,7 +7,14 @@ Everything below is either **[C]** — Claude does it, or **[H]** — the human 
 ## Week 1 — Entity, identity, and the scanner
 
 **[H] (≈3 hrs, one time)**
-- Entity is already in place — the Manitoba corporation. No formation step.
+- Entity is already in place — Glass House Gardens Inc. No formation step.
+- **Register `Shortlist AIO` as a business name** of the corporation through the
+  Manitoba Companies Office online portal — $45 name reservation + $60
+  registration. Required, not optional: Manitoba's *Business Names Registration
+  Act* covers carrying on business under a name other than the corporate name,
+  and the trade name hits the website, outbound email, and invoices from day one.
+  Do **not** change the corporate name by articles of amendment ($175) — see
+  `BUSINESS-PLAN.md` §7.
 - Open a **US-domiciled USD account** (available to a Canadian-incorporated business on its existing registration documents) and connect it to Stripe as the settlement account. Doing this before the first invoice avoids ~1% on every dollar of revenue.
 - Open the Stripe account in the corporate name; set USD as the presentment currency.
 - **Set the Stripe statement descriptor to `SHORTLISTAIO`, not the corporate name.** A client who sees `GLASS HOUSE GARDENS` on a card statement for AI-visibility services will open a support ticket or, worse, file a chargeback. Invoices still carry the legal name.
