@@ -2,7 +2,7 @@
 
 > **DRAFT FOR REVIEW BY COUNSEL — NOT LEGAL ADVICE.** Publish at `/terms`.
 
-**Effective:** `[DATE]`
+**Effective:** 28 August 2026
 
 These terms govern use of `shortlistaio.com` (the "Site"), operated by **Glass House Gardens Inc.**, a Manitoba, Canada corporation carrying on business as **Shortlist AIO**. By using the Site you
 accept them. **Services purchased from us are governed by a separate Master
@@ -91,4 +91,4 @@ protection right you have in your place of residence.
 
 ## 10. Contact
 
-`hello@shortlistaio.com` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`
+`hello@shortlistaio.com` · `40 Essex Drive, Steinbach, MB R5G 2Y6, Canada`

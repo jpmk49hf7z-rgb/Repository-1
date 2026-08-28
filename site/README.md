@@ -24,7 +24,7 @@ domain, and effective dates are filled into `../legal/`.
 - [ ] Fill every `[BRACKET]` in `../legal/privacy-policy.md` and `website-terms.md`
 - [ ] Counsel has reviewed both
 - [ ] Replace `hello@shortlistaio.com` in `index.html` with the real address (2 places)
-- [ ] Replace `Glass House Gardens Inc.` and `[REGISTERED OFFICE ADDRESS]` in `index.html`
+- [x] Entity name and registered office filled in `index.html`
 - [ ] Decide the email tracking question in the privacy policy §3 and reflect what you actually do
 - [ ] `python build.py` exits 0
 

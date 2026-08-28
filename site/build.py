@@ -56,7 +56,8 @@ TEMPLATE = """<!doctype html>
 
 #: Anything inside a blockquote that starts with these markers is an internal
 #: note to counsel and must never reach the published site.
-DRAFT_MARKERS = ("DRAFT FOR REVIEW", "[COUNSEL]", "NOT LEGAL ADVICE")
+DRAFT_MARKERS = ("DRAFT FOR REVIEW", "[COUNSEL]", "[ACCOUNTANT]", "[MAINTAINER]",
+                 "NOT LEGAL ADVICE")
 
 
 def strip_draft_notes(md: str) -> tuple[str, int]:

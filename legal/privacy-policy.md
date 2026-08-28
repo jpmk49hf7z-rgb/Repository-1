@@ -3,7 +3,7 @@
 > **DRAFT FOR REVIEW BY COUNSEL — NOT LEGAL ADVICE.**
 > Publish at `/privacy`. Bracketed items need a decision.
 
-**Effective:** `[DATE]` **Last updated:** `[DATE]`
+**Effective:** 28 August 2026 **Last updated:** 28 August 2026
 
 **Glass House Gardens Inc.** ("we", "us") is a Manitoba, Canada corporation, carrying on business as **Shortlist AIO**. This
 policy explains what personal information we handle, why, and what you can do
@@ -11,7 +11,7 @@ about it. We are subject to Canada's **PIPEDA**; where we handle information
 about people in other jurisdictions, additional rights may apply and are
 described below.
 
-**Contact:** `privacy@shortlistaio.com` · `[REGISTERED OFFICE ADDRESS, MANITOBA, CANADA]`
+**Contact:** `privacy@shortlistaio.com` · `40 Essex Drive, Steinbach, MB R5G 2Y6, Canada`
 
 ---
 
@@ -52,10 +52,17 @@ cross-context behavioural advertising.**
 
 ## 3. Marketing measurement
 
-Our emails `[do / do not]` contain open- and click-tracking. Where they do, we
-record whether a message was opened and which links were followed, to measure
-whether our outreach is relevant and to stop contacting people who are not
-interested. `[Confirm which — this affects disclosures under several regimes.]`
+**Our outreach emails do not contain open-tracking pixels or click-tracking
+redirects.** We do not record whether you opened a message or which links you
+followed. We measure whether our outreach is working by whether people reply.
+
+We do keep a record of which messages were sent to which address and when,
+because anti-spam law requires us to be able to show the basis on which we
+contacted you, and because we must be able to honour an opt-out reliably.
+
+> **[MAINTAINER] Keep this accurate.** If open- or click-tracking is ever enabled in the
+> sending platform — several enable it by default — this section becomes false
+> and must be updated *before* the first tracked message goes out.
 
 ## 4. Answer-engine measurement data
 
