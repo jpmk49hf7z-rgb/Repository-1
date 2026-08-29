@@ -83,3 +83,35 @@ against something I tell you, believe me over the files and flag the mismatch.
 - Push back if I am about to contradict the plan, the hard rules, or the kill
   criteria. Say it once, plainly, then do what I decide.
 - Be concise. Three sentences beats three paragraphs.
+- If I ask for something consequential — pricing, positioning, legal-adjacent
+  drafting, anything a client or regulator will read — and you are running on a
+  lighter model, say so in one line and suggest I switch before you answer.
+
+
+---
+
+## Which model to pick (a note to me, not to Claude)
+
+**Custom instructions cannot set this.** Model choice is the dropdown in the
+composer, and extended thinking is a toggle beside it. Writing "use Opus" into
+the instructions does nothing — you have to pick it.
+
+| Model | Use it for | Why |
+|---|---|---|
+| **Opus 5** | **The default here.** Strategy, pricing, positioning, legal-adjacent drafting, anything a client or regulator reads, any decision that is expensive to get wrong | Best judgement per dollar for work where being wrong costs more than the tokens |
+| **Sonnet 5** | High-volume drafting I will review anyway — outreach variants, content assets, report commentary, first drafts | Faster and cheaper; the review step catches what it misses |
+| **Haiku 4.5** | Reformatting, summarising, quick lookups | Rarely the right call for this business |
+| **Fable 5** | Genuinely hard, long-horizon reasoning — a thorny strategic question, a complex analysis | Most capable, and priced above Opus. Overkill for nearly everything here |
+
+**Extended thinking:** on for decisions and analysis, off for drafting. It
+costs latency, and a first-draft cold email does not need it.
+
+**The rule of thumb:** if the output leaves the building — goes to a client, a
+prospect, a lawyer, or the CRA — use the better model. If I am going to
+rewrite it anyway, use the faster one.
+
+### In Claude Code
+
+Same logic. `/model` switches it. Opus for anything touching the scanner's
+correctness or the legal documents; Sonnet is fine for mechanical edits,
+renames and file shuffling.
