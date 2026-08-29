@@ -1,6 +1,7 @@
 # Project Status
 
 **Last updated:** 28 August 2026
+**Principal:** Trevor Jones
 
 ---
 
@@ -50,13 +51,11 @@ real cold sends is **11 September 2026**, and only if warmup has been running.
 
 Everything below is genuinely blocked without your input. Nothing else is.
 
-### 1. Your full name — *blocks the mailbox setup*
+### ~~1. Your full name~~ — **done**
 
-The setup sheet uses `{FIRST}` and `{LAST}` placeholders. I need your actual
-first and last name to produce the final 16 mailbox addresses.
-
-> Used for: `04-Setup-Guides/EMAIL-SETUP-SHEET.md`, and the email signature
-> block on every outbound message.
+Principal is **Trevor Jones**. The setup sheet is fully populated: all 16
+sending addresses, the brand mailbox, display name and signature block. No
+placeholders remain — it is copy-and-paste ready.
 
 ### 2. Confirmation on the DBA name — *blocks the MSA execution wording*
 

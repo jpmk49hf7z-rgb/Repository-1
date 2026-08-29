@@ -1,8 +1,11 @@
 # Email Setup Sheet
 
 Everything needed to provision email, in the order the forms ask for it.
-Replace `{FIRST}` and `{LAST}` with the principal's actual first and last name
-throughout — one find-and-replace does the whole document.
+Every value below is final — nothing left to substitute. Copy and paste as-is.
+
+Principal: **Trevor Jones**. Entity: **Glass House Gardens Inc.**
+Domains registered **28 August 2026**, so the 14-day aging window closes
+**11 September 2026**.
 
 ---
 
@@ -34,13 +37,13 @@ Choose **Business Starter — $8/user/month**. One seat only.
 Business name:              Shortlist AIO
 Number of employees:        Just you
 Region:                     Canada
-First name:                 {FIRST}
-Last name:                  {LAST}
+First name:                 Trevor
+Last name:                  Jones
 Current email address:      (your existing personal address)
 Domain:                     Yes, I have a domain
 Domain name:                shortlistaio.com
-Username:                   {FIRST}
-Full new address:           {FIRST}@shortlistaio.com
+Username:                   trevor
+Full new address:           trevor@shortlistaio.com
 ```
 
 ### After signup: verify the domain
@@ -90,7 +93,7 @@ record** (choose 2048-bit). It gives you a TXT record with host
 
 ### Free aliases — add these after the mailbox exists
 
-**Admin → Directory → Users → {FIRST} → User information → Email aliases**
+**Admin → Directory → Users → Trevor → User information → Email aliases**
 
 ```
 hello@shortlistaio.com
@@ -128,32 +131,32 @@ shortlistaioteam.com
 ### The sixteen mailboxes — two per domain
 
 ```
-{FIRST}@getshortlistaio.com
-{FIRST}.{LAST}@getshortlistaio.com
-{FIRST}@tryshortlistaio.com
-{FIRST}.{LAST}@tryshortlistaio.com
-{FIRST}@useshortlistaio.com
-{FIRST}.{LAST}@useshortlistaio.com
-{FIRST}@goshortlistaio.com
-{FIRST}.{LAST}@goshortlistaio.com
-{FIRST}@joinshortlistaio.com
-{FIRST}.{LAST}@joinshortlistaio.com
-{FIRST}@withshortlistaio.com
-{FIRST}.{LAST}@withshortlistaio.com
-{FIRST}@shortlistaiohq.com
-{FIRST}.{LAST}@shortlistaiohq.com
-{FIRST}@shortlistaioteam.com
-{FIRST}.{LAST}@shortlistaioteam.com
+trevor@getshortlistaio.com
+trevor.jones@getshortlistaio.com
+trevor@tryshortlistaio.com
+trevor.jones@tryshortlistaio.com
+trevor@useshortlistaio.com
+trevor.jones@useshortlistaio.com
+trevor@goshortlistaio.com
+trevor.jones@goshortlistaio.com
+trevor@joinshortlistaio.com
+trevor.jones@joinshortlistaio.com
+trevor@withshortlistaio.com
+trevor.jones@withshortlistaio.com
+trevor@shortlistaiohq.com
+trevor.jones@shortlistaiohq.com
+trevor@shortlistaioteam.com
+trevor.jones@shortlistaioteam.com
 ```
 
 ### Display name and signature — same on every mailbox
 
 ```
-Display name:  {FIRST} {LAST}
+Display name:  Trevor Jones
 ```
 
 ```
-{FIRST} {LAST}
+Trevor Jones
 Shortlist AIO
 shortlistaio.com
 
