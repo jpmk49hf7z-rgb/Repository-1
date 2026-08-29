@@ -132,21 +132,21 @@ shortlistaioteam.com
 
 ```
 trevor@getshortlistaio.com
-trevor.jones@getshortlistaio.com
+tj@getshortlistaio.com
 trevor@tryshortlistaio.com
-trevor.jones@tryshortlistaio.com
+tj@tryshortlistaio.com
 trevor@useshortlistaio.com
-trevor.jones@useshortlistaio.com
+tj@useshortlistaio.com
 trevor@goshortlistaio.com
-trevor.jones@goshortlistaio.com
+tj@goshortlistaio.com
 trevor@joinshortlistaio.com
-trevor.jones@joinshortlistaio.com
+tj@joinshortlistaio.com
 trevor@withshortlistaio.com
-trevor.jones@withshortlistaio.com
+tj@withshortlistaio.com
 trevor@shortlistaiohq.com
-trevor.jones@shortlistaiohq.com
+tj@shortlistaiohq.com
 trevor@shortlistaioteam.com
-trevor.jones@shortlistaioteam.com
+tj@shortlistaioteam.com
 ```
 
 ### Display name and signature — same on every mailbox
